@@ -2,7 +2,8 @@
     <div class="navbar-wrapper">
         <div class="m-header justify-content-center">
             <a href="/dashboard-superadmin" class="b-brand text-primary">
-                <img src="{{ asset('env') }}/hitam.png" alt="Logo" style="height: 60px;">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSA3ejR6sDhtz1fhMAM3-GDxUQO4Y6EYcsxOg&s"
+                    alt="Logo" style="height: 60px;">
             </a>
         </div>
         @if (Auth::user()->role == 'superadmin')
@@ -16,31 +17,45 @@
                     </li>
 
                     <li class="pc-item pc-caption">
-                        <label>Data Linkskuy</label>
+                        <label>Data Kemenag Kuansing</label>
                         <i class="ti ti-dashboard"></i>
                     </li>
+
+
                     <li class="pc-item">
-                        <a href="{{ route('whatsapp-api.index') }}" class="pc-link">
-                            <span class="pc-micon"><i class="ti ti-brand-whatsapp"></i></span>
-                            <span class="pc-mtext">API Whatsapp</span>
+                        <a href="{{ route('informasi.index') }}" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-news"></i></span>
+                            <span class="pc-mtext">Informasi</span>
                         </a>
                     </li>
                     <li class="pc-item">
-                        <a href="{{ route('manage-testimoni.index') }}" class="pc-link">
-                            <span class="pc-micon"><i class="ti ti-message-circle"></i></span>
-                            <span class="pc-mtext">Testimon Pelanggan</span>
+                        <a href="{{ route('paket-haji.index') }}" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-package"></i></span>
+                            <span class="pc-mtext">Paket Haji</span>
                         </a>
                     </li>
                     <li class="pc-item">
-                        <a href="{{ route('manage-pelanggan.index') }}" class="pc-link">
+                        <a href="{{ route('jadwal-keberangkatan.index') }}" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-calendar"></i></span>
+                            <span class="pc-mtext">Jadwal Keberangkatan</span>
+                        </a>
+                    </li>
+                    <li class="pc-item">
+                        <a href="{{ route('pertanyaan.index') }}" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-help"></i></span>
+                            <span class="pc-mtext">Pertanyaan Umum</span>
+                        </a>
+                    </li>
+                    <li class="pc-item">
+                        <a href="{{ route('calon-jemaah.index') }}" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-users"></i></span>
+                            <span class="pc-mtext">Calon Jemaah</span>
+                        </a>
+                    </li>
+                    <li class="pc-item">
+                        <a href="{{ route('user-jemaah.index') }}" class="pc-link">
                             <span class="pc-micon"><i class="ti ti-user"></i></span>
-                            <span class="pc-mtext">Pelanggan</span>
-                        </a>
-                    </li>
-                    <li class="pc-item">
-                        <a href="{{ route('brand.index') }}" class="pc-link">
-                            <span class="pc-micon"><i class="ti ti-briefcase"></i></span>
-                            <span class="pc-mtext">Manage Brand</span>
+                            <span class="pc-mtext">Data User/Jemaah</span>
                         </a>
                     </li>
                 </ul>

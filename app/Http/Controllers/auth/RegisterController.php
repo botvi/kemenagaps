@@ -48,11 +48,12 @@ class RegisterController extends Controller
                 'no_wa' => $data['no_wa'],
                 'password' => Hash::make($data['password']),
                 'role' => 'user',
+                'kode_login' => strtoupper(\Illuminate\Support\Str::random(6)),
+                'is_active' => false,
             ]);
 
-            Auth::login($user);
-            Alert::success('Pendaftaran berhasil!', 'Selamat datang di Linkskuy!');
-            return redirect()->route('index');
+            Alert::success('Pendaftaran berhasil!', 'Akun Anda berhasil dibuat. Silakan minta kode login ke admin untuk mengaktifkan akun.')->persistent(true);
+            return redirect()->route('login');
             
         } catch (\Exception $e) {
             Alert::error('Gagal mendaftar', 'Terjadi kesalahan saat mendaftar. Silakan coba lagi.');

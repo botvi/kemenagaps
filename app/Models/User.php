@@ -26,6 +26,8 @@ class User extends Authenticatable
         'role',
         'google_id',
         'foto_profile',
+        'kode_login',
+        'is_active',
     ];
 
     /**
@@ -47,4 +49,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function calonJemaahs()
+    {
+        return $this->hasMany(CalonJemaah::class);
+    }
 }

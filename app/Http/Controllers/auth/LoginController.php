@@ -42,8 +42,12 @@ class LoginController extends Controller
                 Alert::success('Login Mantap!', 'Welcome back, Superadmin! Siap-siap ngatur dunia 😎');
                 return redirect()->route('dashboard-superadmin');
             } else if ($user->role == 'user') {
+                if (!$user->is_active) {
+                    Alert::info('Aktivasi Akun', 'Silakan masukkan kode login yang diberikan oleh admin.');
+                    return redirect()->route('activation.form');
+                }
                 Alert::success('Login Mantap!', 'Halo bro, selamat datang lagi di Linkskuy!');
-                return redirect()->route('index');
+                return redirect()->route('home');
             } else {
                 Auth::logout();
                 Alert::error('Login Failed', 'Kamu gak punya akses ke area ini, bro!');

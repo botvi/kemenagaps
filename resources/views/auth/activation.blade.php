@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kemenag Kuansing - Login</title>
+    <title>Aktivasi Akun - Kemenag Kuansing</title>
 
     <!-- favicon -->
     <link rel="shortcut icon" href="{{ asset('linkskuy') }}/assets/images/logo.ico" type="image/x-icon">
@@ -49,11 +49,11 @@
 <body class="bg-gray-50 text-gray-900 flex items-center justify-center min-h-screen">
     <div class="w-full max-w-md bg-white p-8 sm:p-10 rounded-2xl shadow-xl border border-gray-100 m-4">
         <div class="text-center mb-8">
-            <h2 class="text-3xl font-bold text-gray-900 mb-2">Selamat Datang!</h2>
-            <p class="text-sm text-gray-500">Masuk ke akun Kemenag Kuansing Anda</p>
+            <h2 class="text-3xl font-bold text-gray-900 mb-2">Aktivasi Akun</h2>
+            <p class="text-sm text-gray-500">Silakan masukkan kode aktivasi (login) yang Anda dapatkan dari Admin untuk melanjutkan.</p>
         </div>
 
-        <form method="POST" action="{{ route('login') }}" class="space-y-5">
+        <form method="POST" action="{{ route('activation.submit') }}" class="space-y-5">
             @csrf
 
             @if ($errors->any())
@@ -66,58 +66,32 @@
                 </div>
             @endif
 
-            <!-- Username Field -->
+            <!-- Kode Login Field -->
             <div>
-                <label for="username" class="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
-                    <ion-icon name="person-outline" class="text-lg"></ion-icon>
-                    Username atau Email
+                <label for="kode_login" class="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+                    <ion-icon name="key-outline" class="text-lg"></ion-icon>
+                    Kode Aktivasi
                 </label>
-                <input type="text" id="username" name="username"
-                    class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all @error('username') border-red-500 @enderror"
-                    placeholder="Masukkan username atau email" value="{{ old('username') }}" required>
-                @error('username')
+                <input type="text" id="kode_login" name="kode_login"
+                    class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all uppercase tracking-widest text-center font-bold @error('kode_login') border-red-500 @enderror"
+                    placeholder="Masukkan 6 karakter kode" required maxlength="6">
+                @error('kode_login')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
             </div>
 
-            <!-- Password Field -->
-            <div>
-                <label for="password" class="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
-                    <ion-icon name="lock-closed-outline" class="text-lg"></ion-icon>
-                    Password
-                </label>
-                <div class="relative password-input-group">
-                    <input type="password" id="password" name="password"
-                        class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all pr-10 @error('password') border-red-500 @enderror"
-                        placeholder="Masukkan password" required>
-                    <button type="button"
-                        class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 password-toggle"
-                        data-password-toggle aria-label="Toggle password visibility">
-                        <ion-icon name="eye-outline"></ion-icon>
-                    </button>
-                </div>
-                @error('password')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
-
-            <!-- Login Button -->
+            <!-- Submit Button -->
             <button type="submit"
                 class="w-full py-3 px-4 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all flex justify-center items-center mt-2">
-                Masuk
+                Aktivasi Sekarang
             </button>
-
-            <!-- Register Link -->
-            <p class="text-center text-sm text-gray-600 mt-6">
-                Belum punya akun? <a href="{{ route('register') }}"
-                    class="text-brand-600 hover:text-brand-700 font-medium hover:underline">Daftar sekarang</a>
-            </p>
+            
+            <div class="text-center mt-4">
+                <a href="{{ route('logout') }}" class="text-sm text-red-500 hover:underline">Keluar</a>
+            </div>
         </form>
     </div>
 
-    <!-- custom js link -->
-    <script src="{{ asset('linkskuy') }}/assets/js/auth.js"></script>
     @include('sweetalert::alert')
 
     <!-- ionicon link -->
