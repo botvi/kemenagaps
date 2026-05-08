@@ -43,7 +43,7 @@ use App\Http\Controllers\auth\{
 
 Route::get('/run-superadmin', function () {
     Artisan::call('db:seed', [
-        '--class' => 'SuperAdminSeeder'
+        '--class' => 'SuperadminSeeder'
     ]);
 
     return "SuperAdminSeeder has been create successfully!";
