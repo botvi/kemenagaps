@@ -20,6 +20,7 @@ use App\Http\Controllers\superadmin\{
     PertanyaanUmumController,
     CalonJemaahController,
     UserJemaahController,
+    JadwalManasikController,
 };
 
 use App\Http\Controllers\auth\{
@@ -66,7 +67,10 @@ Route::get('/paket-kami/{id}', [App\Http\Controllers\user\LandingController::cla
 Route::get('/artikel', [App\Http\Controllers\user\LandingController::class, 'informasi'])->name('user.informasi');
 Route::get('/artikel/{id}', [App\Http\Controllers\user\LandingController::class, 'informasiDetail'])->name('user.informasi.detail');
 
+
 Route::group(['middleware' => ['auth']], function () {
+    Route::get('/info-manasik', [App\Http\Controllers\user\LandingController::class, 'jadwalManasik'])->name('user.jadwal-manasik');
+    Route::get('/info-manasik/{id}', [App\Http\Controllers\user\LandingController::class, 'jadwalManasikDetail'])->name('user.jadwal-manasik.detail');
     Route::get('/profil', [App\Http\Controllers\user\ProfileController::class, 'index'])->name('user.profil');
     Route::put('/profil/update', [App\Http\Controllers\user\ProfileController::class, 'update'])->name('user.profil.update');
 });
@@ -86,6 +90,7 @@ Route::group(['middleware' => ['role:superadmin']], function () {
     Route::resource('jadwal-keberangkatan', JadwalKeberangkatanController::class);
     Route::resource('pertanyaan', PertanyaanUmumController::class);
     Route::resource('calon-jemaah', CalonJemaahController::class);
+    Route::resource('jadwal-manasik', JadwalManasikController::class);
     Route::get('user-jemaah', [UserJemaahController::class, 'index'])->name('user-jemaah.index');
     Route::post('user-jemaah/{user}/generate-code', [UserJemaahController::class, 'generateCode'])->name('user-jemaah.generateCode');
     Route::post('user-jemaah/{user}/activate', [UserJemaahController::class, 'activate'])->name('user-jemaah.activate');

@@ -41,6 +41,12 @@
                         </a>
                     </li>
                     <li class="pc-item">
+                        <a href="{{ route('jadwal-manasik.index') }}" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-book"></i></span>
+                            <span class="pc-mtext">Jadwal Manasik</span>
+                        </a>
+                    </li>
+                    <li class="pc-item">
                         <a href="{{ route('pertanyaan.index') }}" class="pc-link">
                             <span class="pc-micon"><i class="ti ti-help"></i></span>
                             <span class="pc-mtext">Pertanyaan Umum</span>

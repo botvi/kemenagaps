@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\PaketHaji;
 use App\Models\Informasi;
 use App\Models\PertanyaanUmum;
+use App\Models\JadwalManasik;
 
 class LandingController extends Controller
 {
@@ -47,5 +48,17 @@ class LandingController extends Controller
     {
         $faqs = PertanyaanUmum::where('published', true)->orderBy('urutan', 'asc')->get();
         return view('pageuser.faq', compact('faqs'));
+    }
+
+    public function jadwalManasik()
+    {
+        $jadwalManasiks = JadwalManasik::latest()->paginate(9);
+        return view('pageuser.jadwal-manasik', compact('jadwalManasiks'));
+    }
+
+    public function jadwalManasikDetail($id)
+    {
+        $jadwalManasik = JadwalManasik::findOrFail($id);
+        return view('pageuser.jadwal-manasik-detail', compact('jadwalManasik'));
     }
 }

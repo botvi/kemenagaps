@@ -79,6 +79,7 @@
                     <a href="{{ route('user.paket') }}" class="text-gray-700 hover:text-brand-600 font-medium transition-colors {{ request()->routeIs('user.paket*') ? 'text-brand-600 font-bold' : '' }}">Paket Haji</a>
                     <a href="{{ route('user.informasi') }}" class="text-gray-700 hover:text-brand-600 font-medium transition-colors {{ request()->routeIs('user.informasi*') ? 'text-brand-600 font-bold' : '' }}">Informasi</a>
                     @auth
+                        <a href="{{ route('user.jadwal-manasik') }}" class="text-gray-700 hover:text-brand-600 font-medium transition-colors {{ request()->routeIs('user.jadwal-manasik*') ? 'text-brand-600 font-bold' : '' }}">Jadwal Manasik</a>
                         @if(Auth::user()->role == 'superadmin')
                             <a href="{{ route('dashboard-superadmin') }}" class="bg-brand-600 text-white px-6 py-2 rounded-full font-medium hover:bg-brand-700 transition-colors shadow-lg shadow-brand-500/30">
                                 Dashboard
@@ -110,6 +111,7 @@
                 <a href="{{ route('user.paket') }}" class="text-gray-700 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('user.paket*') ? 'bg-gray-50 text-brand-600' : '' }}">Paket Haji</a>
                 <a href="{{ route('user.informasi') }}" class="text-gray-700 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('user.informasi*') ? 'bg-gray-50 text-brand-600' : '' }}">Informasi</a>
                 @auth
+                    <a href="{{ route('user.jadwal-manasik') }}" class="text-gray-700 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('user.jadwal-manasik*') ? 'bg-gray-50 text-brand-600' : '' }}">Jadwal Manasik</a>
                     @if(Auth::user()->role == 'superadmin')
                         <a href="{{ route('dashboard-superadmin') }}" class="text-brand-600 font-bold hover:bg-gray-50 block px-3 py-2 rounded-md text-base">Dashboard</a>
                     @else
