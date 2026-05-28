@@ -27,11 +27,15 @@ class ProfileController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'no_wa' => 'required|string|max:20|unique:users,no_wa,' . $user->id,
+            'usia' => 'required|integer|min:1|max:120',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'password' => 'nullable|min:6|confirmed',
         ]);
 
         $user->name = $request->name;
         $user->no_wa = $request->no_wa;
+        $user->usia = $request->usia;
+        $user->jenis_kelamin = $request->jenis_kelamin;
 
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);

@@ -33,6 +33,14 @@
                                 <i class="fa-solid fa-key w-5 text-center text-brand-500"></i>
                                 <span>Kode Login: <strong class="text-gray-900">{{ $user->kode_login }}</strong></span>
                             </li>
+                            <li class="flex items-center gap-3 text-gray-600">
+                                <i class="fa-solid fa-cake-candles w-5 text-center text-brand-500"></i>
+                                <span>Usia: <strong class="text-gray-900">{{ $user->usia ?? '-' }} tahun</strong></span>
+                            </li>
+                            <li class="flex items-center gap-3 text-gray-600">
+                                <i class="fa-solid fa-venus-mars w-5 text-center text-brand-500"></i>
+                                <span>{{ $user->jenis_kelamin ?? '-' }}</span>
+                            </li>
                         </ul>
                         
                         <div class="mt-8 pt-6 border-t border-gray-100">
@@ -141,6 +149,22 @@
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Nomor WhatsApp</label>
                                 <input type="text" name="no_wa" value="{{ old('no_wa', $user->no_wa) }}" class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Usia</label>
+                                <input type="number" name="usia" min="1" max="120" value="{{ old('usia', $user->usia) }}" class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all" placeholder="Contoh: 35">
+                                @error('usia') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Jenis Kelamin</label>
+                                <select name="jenis_kelamin" class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all bg-white">
+                                    <option value="" disabled {{ !$user->jenis_kelamin ? 'selected' : '' }}>-- Pilih --</option>
+                                    <option value="Laki-laki" {{ old('jenis_kelamin', $user->jenis_kelamin) == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                                    <option value="Perempuan" {{ old('jenis_kelamin', $user->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                                </select>
+                                @error('jenis_kelamin') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                             </div>
                         </div>
 

@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Kemenag Kuansing</title>
+    <title>Kemenhaj Kuansing</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Inter -->
@@ -71,7 +71,7 @@
                 <div class="flex-shrink-0 flex items-center">
                     <a href="#" class="text-2xl font-bold text-brand-600 flex items-center gap-2">
                         <i class="fa-solid fa-kaaba"></i>
-                        <span>Kemenag Kuansing</span>
+                        <span>Kemenhaj Kuansing</span>
                     </a>
                 </div>
                 <div class="hidden md:flex space-x-8 items-center">
@@ -136,7 +136,7 @@
                 <div class="col-span-1 md:col-span-2">
                     <a href="#" class="text-2xl font-bold text-brand-500 flex items-center gap-2 mb-4">
                         <i class="fa-solid fa-kaaba"></i>
-                        <span>Kemenag Kuansing</span>
+                        <span>Kemenhaj Kuansing</span>
                     </a>
                     <p class="text-gray-400 mb-6 max-w-md">
                         Melayani dengan sepenuh hati untuk wujudkan niat suci Anda ke Tanah Suci. Biro perjalanan Haji & Umrah terpercaya.
@@ -181,7 +181,7 @@
             </div>
             <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
                 <p class="text-gray-500 text-sm mb-4 md:mb-0">
-                    &copy; {{ date('Y') }} Kemenag Kuansing. Hak Cipta Dilindungi.
+                    &copy; {{ date('Y') }} Kemenhaj Kuansing. Hak Cipta Dilindungi.
                 </p>
                 <div class="flex space-x-4 text-sm text-gray-500">
                     <a href="#" class="hover:text-white transition-colors">Syarat & Ketentuan</a>
@@ -219,7 +219,7 @@
                         <i class="fa-solid fa-robot text-xs"></i>
                     </div>
                     <div class="bg-white border border-gray-100 p-3 rounded-2xl rounded-tl-none shadow-sm text-sm text-gray-700 max-w-[85%]">
-                        Assalamu'alaikum 🙏<br>Saya adalah Asisten AI Kemenag Kuansing. Anda bisa memilih pertanyaan umum di bawah, atau ketikkan pertanyaan Anda sendiri (misal: "harga haji plus", "fasilitas").
+                        Assalamu'alaikum 🙏<br>Saya adalah Asisten AI Kemenhaj Kuansing. Anda bisa memilih pertanyaan umum di bawah, atau ketikkan pertanyaan Anda sendiri (misal: "harga haji plus", "fasilitas").
                     </div>
                 </div>
 

@@ -1,11 +1,11 @@
-@extends('pageuser.layout')
+﻿@extends('pageuser.layout')
 
 @section('content')
     <!-- Page Header -->
     <section class="pt-32 pb-16 bg-brand-600 text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 class="text-4xl md:text-5xl font-bold mb-4">Jadwal Manasik</h1>
-            <p class="text-brand-100 max-w-2xl mx-auto text-lg">Informasi jadwal kegiatan manasik haji dan umrah Kemenag Kuansing.</p>
+            <p class="text-brand-100 max-w-2xl mx-auto text-lg">Informasi jadwal kegiatan manasik haji dan umrah Kemenhaj Kuansing.</p>
         </div>
     </section>
 

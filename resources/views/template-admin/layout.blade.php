@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <!-- [Head] start -->
 
 <head>
-    <title>Dashboard | Kemenag Kuansing</title>
+    <title>Dashboard | Kemenhaj Kuansing</title>
     <!-- [Meta] -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -106,7 +106,7 @@
         <div class="footer-wrapper container-fluid">
             <div class="row">
                 <div class="col-sm my-1">
-                    <p class="m-0">Kemenag Kuansing &#9829;</p>
+                    <p class="m-0">Kemenhaj Kuansing &#9829;</p>
                 </div>
                 <div class="col-auto my-1">
                     <ul class="list-inline footer-link mb-0">

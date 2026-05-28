@@ -22,6 +22,8 @@ class SuperadminSeeder extends Seeder
             'email' => 'superadmin@gmail.com',
             'foto_profile' => 'https://lh3.googleusercontent.com/a/ACg8ocJroOovPBUo7cGCcixp-sCq9_hQ9fvBvR_g7flBSsRck8-yvXkf=s96-c',
             'no_wa' => '082211104642',
+            'usia' => '30',
+            'jenis_kelamin' => 'Laki-laki',
             'password' => Hash::make('password'), // Pastikan mengganti 'password' dengan kata sandi yang aman
         ]);
     }

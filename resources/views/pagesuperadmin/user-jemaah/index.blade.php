@@ -36,6 +36,8 @@
                                         <th>Nama</th>
                                         <th>Email</th>
                                         <th>No WA</th>
+                                        <th>Usia</th>
+                                        <th>Jenis Kelamin</th>
                                         <th>Kode Login</th>
                                         <th>Status Akun</th>
                                         <th>Aksi</th>
@@ -48,6 +50,16 @@
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->email }}</td>
                                         <td>{{ $item->no_wa }}</td>
+                                        <td>{{ $item->usia ? $item->usia . ' thn' : '-' }}</td>
+                                        <td>
+                                            @if($item->jenis_kelamin == 'Laki-laki')
+                                                <span class="badge bg-info">Laki-laki</span>
+                                            @elseif($item->jenis_kelamin == 'Perempuan')
+                                                <span class="badge bg-danger">Perempuan</span>
+                                            @else
+                                                <span class="text-muted">-</span>
+                                            @endif
+                                        </td>
                                         <td><strong>{{ $item->kode_login }}</strong></td>
                                         <td>
                                             @if($item->is_active)

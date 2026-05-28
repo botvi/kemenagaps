@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kemenag Kuansing - Register</title>
+    <title>Kemenhaj Kuansing - Register</title>
 
     <!-- favicon -->
     <link rel="shortcut icon" href="{{ asset('linkskuy') }}/assets/images/logo.ico" type="image/x-icon">
@@ -48,7 +48,7 @@
     <div class="w-full max-w-lg bg-white p-8 sm:p-10 rounded-2xl shadow-xl border border-gray-100 m-4">
         <div class="text-center mb-8">
             <h2 class="text-3xl font-bold text-gray-900 mb-2">Buat Akun Baru</h2>
-            <p class="text-sm text-gray-500">Daftar ke Kemenag Kuansing untuk memulai</p>
+            <p class="text-sm text-gray-500">Daftar ke Kemenhaj Kuansing untuk memulai</p>
         </div>
 
         <form method="POST" action="{{ route('register') }}" class="space-y-4">
@@ -120,6 +120,38 @@
                 @error('email')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
+            </div>
+
+            <!-- Usia & Jenis Kelamin -->
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label for="usia" class="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+                        <ion-icon name="calendar-outline" class="text-lg"></ion-icon>
+                        Usia
+                    </label>
+                    <input type="number" id="usia" name="usia" min="1" max="120"
+                        class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all @error('usia') border-red-500 @enderror"
+                        placeholder="Contoh: 35" value="{{ old('usia') }}" required>
+                    @error('usia')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label for="jenis_kelamin" class="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+                        <ion-icon name="people-outline" class="text-lg"></ion-icon>
+                        Jenis Kelamin
+                    </label>
+                    <select id="jenis_kelamin" name="jenis_kelamin"
+                        class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all bg-white @error('jenis_kelamin') border-red-500 @enderror" required>
+                        <option value="" disabled selected>-- Pilih --</option>
+                        <option value="Laki-laki" {{ old('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                        <option value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                    </select>
+                    @error('jenis_kelamin')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
             </div>
 
             <!-- Password Field -->

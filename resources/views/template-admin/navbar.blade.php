@@ -17,7 +17,7 @@
                     </li>
 
                     <li class="pc-item pc-caption">
-                        <label>Data Kemenag Kuansing</label>
+                        <label>Data Kemenhaj Kuansing</label>
                         <i class="ti ti-dashboard"></i>
                     </li>
 
@@ -62,6 +62,12 @@
                         <a href="{{ route('user-jemaah.index') }}" class="pc-link">
                             <span class="pc-micon"><i class="ti ti-user"></i></span>
                             <span class="pc-mtext">Data User/Jemaah</span>
+                        </a>
+                    </li>
+                    <li class="pc-item">
+                        <a href="{{ route('laporan.index') }}" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-file-text"></i></span>
+                            <span class="pc-mtext">Laporan Jemaah</span>
                         </a>
                     </li>
                 </ul>

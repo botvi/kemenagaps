@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kemenag Kuansing - Login</title>
+    <title>Kemenhaj Kuansing - Login</title>
 
     <!-- favicon -->
     <link rel="shortcut icon" href="{{ asset('linkskuy') }}/assets/images/logo.ico" type="image/x-icon">
@@ -50,7 +50,7 @@
     <div class="w-full max-w-md bg-white p-8 sm:p-10 rounded-2xl shadow-xl border border-gray-100 m-4">
         <div class="text-center mb-8">
             <h2 class="text-3xl font-bold text-gray-900 mb-2">Selamat Datang!</h2>
-            <p class="text-sm text-gray-500">Masuk ke akun Kemenag Kuansing Anda</p>
+            <p class="text-sm text-gray-500">Masuk ke akun Kemenhaj Kuansing Anda</p>
         </div>
 
         <form method="POST" action="{{ route('login') }}" class="space-y-5">

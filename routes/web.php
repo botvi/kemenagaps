@@ -21,6 +21,7 @@ use App\Http\Controllers\superadmin\{
     CalonJemaahController,
     UserJemaahController,
     JadwalManasikController,
+    LaporanController,
 };
 
 use App\Http\Controllers\auth\{
@@ -94,5 +95,9 @@ Route::group(['middleware' => ['role:superadmin']], function () {
     Route::get('user-jemaah', [UserJemaahController::class, 'index'])->name('user-jemaah.index');
     Route::post('user-jemaah/{user}/generate-code', [UserJemaahController::class, 'generateCode'])->name('user-jemaah.generateCode');
     Route::post('user-jemaah/{user}/activate', [UserJemaahController::class, 'activate'])->name('user-jemaah.activate');
+
+    // Laporan
+    Route::get('laporan', [LaporanController::class, 'index'])->name('laporan.index');
+    Route::get('laporan/print', [LaporanController::class, 'print'])->name('laporan.print');
 });
 
