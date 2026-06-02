@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -241,7 +241,7 @@
         <!-- Float Button -->
         <button id="chat-toggle" class="pointer-events-auto chat-btn-float w-14 h-14 bg-green-500 rounded-full shadow-lg shadow-green-500/40 text-white flex items-center justify-center text-2xl hover:bg-green-600 hover:scale-110 transition-all focus:outline-none relative">
             <span class="absolute top-0 right-0 w-3 h-3 bg-red-500 border-2 border-white rounded-full"></span>
-            <i class="fa-brands fa-whatsapp"></i>
+            <i class="fa-solid fa-robot"></i>
         </button>
     </div>
 
