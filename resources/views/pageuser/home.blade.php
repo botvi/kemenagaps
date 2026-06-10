@@ -27,10 +27,12 @@
                         pelayanan sepenuh hati.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <a href="{{ route('user.paket') }}"
-                            class="bg-brand-600 text-white px-8 py-3.5 rounded-full font-semibold hover:bg-brand-700 transition-all shadow-xl shadow-brand-500/30 flex items-center justify-center gap-2">
-                            Lihat Paket <i class="fa-solid fa-arrow-right"></i>
-                        </a>
+                        @if(!Auth::check() || !Auth::user()->calonJemaahs()->exists())
+                            <a href="{{ route('user.paket') }}"
+                                class="bg-brand-600 text-white px-8 py-3.5 rounded-full font-semibold hover:bg-brand-700 transition-all shadow-xl shadow-brand-500/30 flex items-center justify-center gap-2">
+                                Lihat Paket <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        @endif
                         <a href="{{ route('user.informasi') }}"
                             class="bg-white text-gray-700 border border-gray-200 px-8 py-3.5 rounded-full font-semibold hover:bg-gray-50 transition-all shadow-sm flex items-center justify-center">
                             Pelajari Lebih Lanjut

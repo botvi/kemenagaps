@@ -52,15 +52,7 @@
                                         <label class="form-label">Kode Login</label>
                                         <input type="text" name="kodelogin" class="form-control" required>
                                     </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Status Pendaftaran</label>
-                                        <select name="status_pendaftaran" class="form-control" required>
-                                            <option value="pending">Pending</option>
-                                            <option value="dikonfirmasi">Dikonfirmasi</option>
-                                            <option value="ditolak">Ditolak</option>
-                                            <option value="cancel">Cancel</option>
-                                        </select>
-                                    </div>
+                                  
                                 </div>
                                 <div class="col-md-12 text-end">
                                     <button type="submit" class="btn btn-primary">Simpan</button>

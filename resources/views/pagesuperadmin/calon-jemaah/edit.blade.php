@@ -53,15 +53,7 @@
                                         <label class="form-label">Kode Login</label>
                                         <input type="text" name="kodelogin" class="form-control" value="{{ $calonJemaah->kodelogin }}" required>
                                     </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Status Pendaftaran</label>
-                                        <select name="status_pendaftaran" class="form-control" required>
-                                            <option value="pending" {{ $calonJemaah->status_pendaftaran == 'pending' ? 'selected' : '' }}>Pending</option>
-                                            <option value="dikonfirmasi" {{ $calonJemaah->status_pendaftaran == 'dikonfirmasi' ? 'selected' : '' }}>Dikonfirmasi</option>
-                                            <option value="ditolak" {{ $calonJemaah->status_pendaftaran == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
-                                            <option value="cancel" {{ $calonJemaah->status_pendaftaran == 'cancel' ? 'selected' : '' }}>Cancel</option>
-                                        </select>
-                                    </div>
+                                  
                                 </div>
                                 <div class="col-md-12 text-end">
                                     <button type="submit" class="btn btn-primary">Update</button>

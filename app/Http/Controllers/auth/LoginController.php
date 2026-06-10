@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\CalonJemaah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -20,42 +21,48 @@ class LoginController extends Controller
             'username' => 'required',
             'password' => 'required',
         ]);
-    
+
         $username = $request->username;
         $password = $request->password;
-        
+
         // Coba login dengan username atau email
         $credentials = [
             'password' => $password
         ];
-        
+
         // Jika input mengandung @, anggap sebagai email
         if (strpos($username, '@') !== false) {
             $credentials['email'] = $username;
         } else {
             $credentials['username'] = $username;
         }
-    
+
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             if ($user->role == 'superadmin') {
-                Alert::success('Login Mantap!', 'Welcome back, Superadmin! Siap-siap ngatur dunia 😎');
+                Alert::success('Login Berhasil', 'Selamat datang kembali, Superadmin.');
                 return redirect()->route('dashboard-superadmin');
             } else if ($user->role == 'user') {
                 if (!$user->is_active) {
                     Alert::info('Aktivasi Akun', 'Silakan masukkan kode login yang diberikan oleh admin.');
-                    return redirect()->route('activation.form');
+                    return redirect()->route('activation.form', $user->id);
                 }
-                Alert::success('Login Mantap!', 'Halo bro, selamat datang lagi di Linkskuy!');
+                // Cek apakah user sudah terdaftar sebagai calon jemaah
+                $isCalonJemaah = CalonJemaah::where('user_id', $user->id)->exists();
+                if ($isCalonJemaah) {
+                    Alert::success('Login Berhasil', 'Selamat datang kembali, Jemaah.');
+                    return redirect()->route('jemaah.dashboard');
+                }
+                Alert::success('Login Berhasil', 'Selamat datang kembali di Kemenhaj Kuansing.');
                 return redirect()->route('home');
             } else {
                 Auth::logout();
-                Alert::error('Login Failed', 'Kamu gak punya akses ke area ini, bro!');
+                Alert::error('Akses Ditolak', 'Anda tidak memiliki wewenang untuk mengakses halaman ini.');
                 return redirect('/login');
             }
         }
-    
-        Alert::error('Login Failed', 'Username atau password kamu salah, bro!');
+
+        Alert::error('Login Gagal', 'Username atau password yang Anda masukkan salah.');
         return back();
     }
 
@@ -64,7 +71,7 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        Alert::success('Yah, cabut dulu ya?', 'Logout sukses, jangan lupa balik lagi bro!');
+        Alert::success('Logout Berhasil', 'Anda telah berhasil keluar dari sistem.');
         return redirect('/');
     }
 }

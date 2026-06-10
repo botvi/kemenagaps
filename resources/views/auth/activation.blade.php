@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 
 <head>
@@ -12,6 +12,9 @@
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- hCaptcha JS -->
+    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 
     <!-- google font link -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -53,7 +56,7 @@
             <p class="text-sm text-gray-500">Silakan masukkan kode aktivasi (login) yang Anda dapatkan dari Admin untuk melanjutkan.</p>
         </div>
 
-        <form method="POST" action="{{ route('activation.submit') }}" class="space-y-5">
+        <form method="POST" action="{{ route('activation.submit', $user->id) }}" class="space-y-5">
             @csrf
 
             @if ($errors->any())
@@ -65,6 +68,38 @@
                     </ul>
                 </div>
             @endif
+
+            <!-- hCaptcha Widget & Reveal Area -->
+            <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 space-y-3">
+                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider text-center">Verifikasi Manusia (Buka Kode Aktivasi)</label>
+                
+                <div class="flex justify-center">
+                    <div class="h-captcha" 
+                         data-sitekey="{{ env('HCAPTCHA_SITEKEY', '10000000-ffff-ffff-ffff-ffffffffffff') }}" 
+                         data-callback="onCaptchaSuccess">
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div id="captcha-loading" class="hidden flex flex-col items-center justify-center py-2">
+                    <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-brand-600"></div>
+                    <span class="text-xs text-gray-500 mt-2">Memverifikasi captcha...</span>
+                </div>
+
+                <!-- Reveal Box (Hidden by default, shown when verified) -->
+                <div id="revealed-code-box" class="hidden transition-all duration-500 ease-out transform scale-95 opacity-0">
+                    <div class="bg-teal-50 border border-teal-200 rounded-lg p-3 text-center">
+                        <span class="text-xs text-teal-600 block mb-1 font-medium">Kode Anda (Telah Diisi Otomatis):</span>
+                        <div class="flex items-center justify-center gap-2">
+                            <span id="revealed-code" class="text-2xl font-bold tracking-widest text-teal-700 uppercase"></span>
+                            <button type="button" id="btn-copy-code" class="p-1.5 bg-teal-100 hover:bg-teal-200 text-teal-700 rounded-md transition-colors flex items-center justify-center" title="Salin Kode">
+                                <ion-icon name="copy-outline" class="text-lg"></ion-icon>
+                            </button>
+                        </div>
+                        <span id="copy-status" class="text-xs text-teal-500 block mt-1 hidden">Berhasil disalin!</span>
+                    </div>
+                </div>
+            </div>
 
             <!-- Kode Login Field -->
             <div>
@@ -97,6 +132,80 @@
     <!-- ionicon link -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons/5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <!-- hCaptcha JS Callback Script -->
+    <script>
+        function onCaptchaSuccess(token) {
+            const loadingIndicator = document.getElementById('captcha-loading');
+            const codeBox = document.getElementById('revealed-code-box');
+            const revealedCode = document.getElementById('revealed-code');
+            const codeInput = document.getElementById('kode_login');
+
+            // Show loading, hide code box
+            loadingIndicator.classList.remove('hidden');
+            codeBox.classList.add('hidden');
+
+            fetch("{{ route('activation.reveal', $user->id) }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                },
+                body: JSON.stringify({
+                    "h-captcha-response": token
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                loadingIndicator.classList.add('hidden');
+                if (data.success) {
+                    // Autofill the input field
+                    codeInput.value = data.kode_login;
+                    
+                    // Show revealed code
+                    revealedCode.textContent = data.kode_login;
+                    codeBox.classList.remove('hidden');
+                    
+                    // Trigger animation
+                    setTimeout(() => {
+                        codeBox.classList.remove('scale-95', 'opacity-0');
+                        codeBox.classList.add('scale-100', 'opacity-100');
+                    }, 50);
+                } else {
+                    alert('Gagal memverifikasi captcha: ' + (data.message || 'Silakan coba lagi.'));
+                    if (typeof hcaptcha !== 'undefined') {
+                        hcaptcha.reset();
+                    }
+                }
+            })
+            .catch(error => {
+                loadingIndicator.classList.add('hidden');
+                console.error("Error:", error);
+                alert("Terjadi kesalahan sistem. Silakan coba kembali.");
+                if (typeof hcaptcha !== 'undefined') {
+                    hcaptcha.reset();
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const btnCopy = document.getElementById('btn-copy-code');
+            if (btnCopy) {
+                btnCopy.addEventListener('click', function() {
+                    const code = document.getElementById('revealed-code').textContent;
+                    navigator.clipboard.writeText(code).then(() => {
+                        const status = document.getElementById('copy-status');
+                        status.classList.remove('hidden');
+                        setTimeout(() => {
+                            status.classList.add('hidden');
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('Gagal menyalin: ', err);
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

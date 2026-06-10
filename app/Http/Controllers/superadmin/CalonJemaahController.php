@@ -30,11 +30,15 @@ class CalonJemaahController extends Controller
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'jadwal_keberangkatan_id' => 'required|exists:jadwal_keberangkatans,id',
-            'status_pendaftaran' => 'required',
             'kodelogin' => 'required|unique:calon_jemaahs,kodelogin',
         ]);
 
-        CalonJemaah::create($request->all());
+        $data = $request->all();
+        if (empty($data['status_pendaftaran'])) {
+            $data['status_pendaftaran'] = 'dikonfirmasi';
+        }
+
+        CalonJemaah::create($data);
 
         Alert::success('Berhasil', 'Calon Jemaah berhasil ditambahkan');
         return redirect()->route('calon-jemaah.index');
@@ -57,11 +61,15 @@ class CalonJemaahController extends Controller
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'jadwal_keberangkatan_id' => 'required|exists:jadwal_keberangkatans,id',
-            'status_pendaftaran' => 'required',
             'kodelogin' => 'required|unique:calon_jemaahs,kodelogin,' . $calonJemaah->id,
         ]);
 
-        $calonJemaah->update($request->all());
+        $data = $request->all();
+        if (empty($data['status_pendaftaran'])) {
+            $data['status_pendaftaran'] = 'dikonfirmasi';
+        }
+
+        $calonJemaah->update($data);
 
         Alert::success('Berhasil', 'Calon Jemaah berhasil diperbarui');
         return redirect()->route('calon-jemaah.index');

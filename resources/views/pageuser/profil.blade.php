@@ -88,12 +88,7 @@
                                         </span>
                                     @endif
                                 </div>
-                                <div>
-                                    <p class="text-sm text-gray-500 mb-1">Jadwal Keberangkatan</p>
-                                    <p class="font-medium text-gray-900">
-                                        {{ $calonJemaah->jadwalKeberangkatan ? \Carbon\Carbon::parse($calonJemaah->jadwalKeberangkatan->tanggal_keberangkatan)->translatedFormat('d F Y') : '-' }}
-                                    </p>
-                                </div>
+
                                 <div>
                                     <p class="text-sm text-gray-500 mb-1">Kode Pendaftaran</p>
                                     <p class="font-mono font-bold text-gray-900">{{ $calonJemaah->kodelogin }}</p>
@@ -107,6 +102,16 @@
                                     </p>
                                 </div>
                             @endif
+
+                            <div class="mt-4 p-4 bg-brand-50 border border-brand-100 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                <div>
+                                    <h5 class="font-bold text-brand-900 text-sm">Estimasi Keberangkatan Haji</h5>
+                                    <p class="text-xs text-brand-700 mt-0.5">Silakan mengecek perkiraan tahun keberangkatan Anda menggunakan Nomor Porsi Anda di situs resmi Kemenag.</p>
+                                </div>
+                                <a href="https://haji.go.id/estimasi-keberangkatan" target="_blank" class="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold rounded-full shadow-md shadow-brand-500/20 transition-all flex-shrink-0">
+                                    Cek Estimasi Haji <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                                </a>
+                            </div>
                         @else
                             <div class="text-center py-8">
                                 <div class="w-16 h-16 bg-gray-100 text-gray-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">

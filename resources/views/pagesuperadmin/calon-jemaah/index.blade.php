@@ -36,9 +36,7 @@
                                         <th>No</th>
                                         <th>Nama User</th>
                                         <th>Paket Haji</th>
-                                        <th>Tanggal Keberangkatan</th>
                                         <th>Kode Login</th>
-                                        <th>Status Pendaftaran</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -48,19 +46,8 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->user->name }}</td>
                                         <td>{{ $item->jadwalKeberangkatan->paketHaji->nama_paket }}</td>
-                                        <td>{{ $item->jadwalKeberangkatan->tanggal_keberangkatan }}</td>
                                         <td>{{ $item->kodelogin }}</td>
-                                        <td>
-                                            @if($item->status_pendaftaran == 'pending')
-                                                <span class="badge bg-warning">Pending</span>
-                                            @elseif($item->status_pendaftaran == 'dikonfirmasi')
-                                                <span class="badge bg-success">Dikonfirmasi</span>
-                                            @elseif($item->status_pendaftaran == 'ditolak')
-                                                <span class="badge bg-danger">Ditolak</span>
-                                            @else
-                                                <span class="badge bg-secondary">Cancel</span>
-                                            @endif
-                                        </td>
+                                       
                                         <td>
                                             <a href="{{ route('calon-jemaah.edit', $item->id) }}" class="btn btn-sm btn-info">Edit</a>
                                             <form action="{{ route('calon-jemaah.destroy', $item->id) }}" method="POST" class="d-inline">

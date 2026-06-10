@@ -15,7 +15,8 @@ class PertanyaanUmumController extends Controller
     public function index()
     {
         $pertanyaanUmum = PertanyaanUmum::orderBy('urutan')->get();
-        return view('pagesuperadmin.pertanyaan.index', compact('pertanyaanUmum'));
+        $pertanyaanBelumTerjawab = \App\Models\PertanyaanBelumTerjawab::orderBy('jumlah_ditanyakan', 'desc')->latest()->get();
+        return view('pagesuperadmin.pertanyaan.index', compact('pertanyaanUmum', 'pertanyaanBelumTerjawab'));
     }
 
     public function create()
@@ -39,17 +40,19 @@ class PertanyaanUmumController extends Controller
         return redirect()->route('pertanyaan.index');
     }
 
-    public function show(PertanyaanUmum $pertanyaanUmum)
+    public function show(PertanyaanUmum $pertanyaan)
     {
+        $pertanyaanUmum = $pertanyaan;
         return view('pagesuperadmin.pertanyaan.show', compact('pertanyaanUmum'));
     }
 
-    public function edit(PertanyaanUmum $pertanyaanUmum)
+    public function edit(PertanyaanUmum $pertanyaan)
     {
+        $pertanyaanUmum = $pertanyaan;
         return view('pagesuperadmin.pertanyaan.edit', compact('pertanyaanUmum'));
     }
 
-    public function update(Request $request, PertanyaanUmum $pertanyaanUmum)
+    public function update(Request $request, PertanyaanUmum $pertanyaan)
     {
         $request->validate([
             'pertanyaan' => 'required',
@@ -59,15 +62,15 @@ class PertanyaanUmumController extends Controller
         $data = $request->all();
         $data['published'] = $request->has('published');
 
-        $pertanyaanUmum->update($data);
+        $pertanyaan->update($data);
 
         Alert::success('Berhasil', 'Pertanyaan Umum berhasil diperbarui');
         return redirect()->route('pertanyaan.index');
     }
 
-    public function destroy(PertanyaanUmum $pertanyaanUmum)
+    public function destroy(PertanyaanUmum $pertanyaan)
     {
-        $pertanyaanUmum->delete();
+        $pertanyaan->delete();
 
         Alert::success('Berhasil', 'Pertanyaan Umum berhasil dihapus');
         return redirect()->route('pertanyaan.index');

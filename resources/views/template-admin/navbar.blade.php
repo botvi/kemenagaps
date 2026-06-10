@@ -2,8 +2,7 @@
     <div class="navbar-wrapper">
         <div class="m-header justify-content-center">
             <a href="/dashboard-superadmin" class="b-brand text-primary">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSA3ejR6sDhtz1fhMAM3-GDxUQO4Y6EYcsxOg&s"
-                    alt="Logo" style="height: 60px;">
+                <span class="b-title">Kemenhaj Kuansing</span>
             </a>
         </div>
         @if (Auth::user()->role == 'superadmin')
@@ -50,6 +49,12 @@
                         <a href="{{ route('pertanyaan.index') }}" class="pc-link">
                             <span class="pc-micon"><i class="ti ti-help"></i></span>
                             <span class="pc-mtext">Pertanyaan Umum</span>
+                            @php
+                                $unansweredCount = \App\Models\PertanyaanBelumTerjawab::count();
+                            @endphp
+                            @if($unansweredCount > 0)
+                                <span class="badge bg-danger ms-2">{{ $unansweredCount }}</span>
+                            @endif
                         </a>
                     </li>
                     <li class="pc-item">
@@ -62,6 +67,12 @@
                         <a href="{{ route('user-jemaah.index') }}" class="pc-link">
                             <span class="pc-micon"><i class="ti ti-user"></i></span>
                             <span class="pc-mtext">Data User/Jemaah</span>
+                        </a>
+                    </li>
+                    <li class="pc-item">
+                        <a href="{{ route('ulasan.index') }}" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-star"></i></span>
+                            <span class="pc-mtext">Ulasan Jemaah</span>
                         </a>
                     </li>
                     <li class="pc-item">

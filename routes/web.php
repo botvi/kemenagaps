@@ -18,6 +18,7 @@ use App\Http\Controllers\superadmin\{
     PaketHajiController,
     JadwalKeberangkatanController,
     PertanyaanUmumController,
+    PertanyaanBelumTerjawabController,
     CalonJemaahController,
     UserJemaahController,
     JadwalManasikController,
@@ -59,21 +60,25 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
-Route::get('/activation', [ActivationController::class, 'showActivationForm'])->name('activation.form')->middleware('auth');
-Route::post('/activation', [ActivationController::class, 'activate'])->name('activation.submit')->middleware('auth');
+Route::get('/activation/{id}', [ActivationController::class, 'showActivationForm'])->name('activation.form');
+Route::post('/activation/{id}', [ActivationController::class, 'activate'])->name('activation.submit');
+Route::post('/activation/{id}/reveal', [ActivationController::class, 'revealCode'])->name('activation.reveal');
 
 Route::get('/', [App\Http\Controllers\user\LandingController::class, 'index'])->name('home');
 Route::get('/paket-kami', [App\Http\Controllers\user\LandingController::class, 'paket'])->name('user.paket');
 Route::get('/paket-kami/{id}', [App\Http\Controllers\user\LandingController::class, 'paketDetail'])->name('user.paket.detail');
 Route::get('/artikel', [App\Http\Controllers\user\LandingController::class, 'informasi'])->name('user.informasi');
 Route::get('/artikel/{id}', [App\Http\Controllers\user\LandingController::class, 'informasiDetail'])->name('user.informasi.detail');
+Route::get('/ulasan-jemaah', [App\Http\Controllers\user\UlasanController::class, 'index'])->name('user.ulasan');
 
 
 Route::group(['middleware' => ['auth']], function () {
+    Route::get('/dashboard-jemaah', [App\Http\Controllers\user\JemaahDashboardController::class, 'index'])->name('jemaah.dashboard');
     Route::get('/info-manasik', [App\Http\Controllers\user\LandingController::class, 'jadwalManasik'])->name('user.jadwal-manasik');
     Route::get('/info-manasik/{id}', [App\Http\Controllers\user\LandingController::class, 'jadwalManasikDetail'])->name('user.jadwal-manasik.detail');
     Route::get('/profil', [App\Http\Controllers\user\ProfileController::class, 'index'])->name('user.profil');
     Route::put('/profil/update', [App\Http\Controllers\user\ProfileController::class, 'update'])->name('user.profil.update');
+    Route::post('/ulasan-jemaah', [App\Http\Controllers\user\UlasanController::class, 'store'])->name('user.ulasan.store');
 });
 
 // Chat Bot API
@@ -90,8 +95,10 @@ Route::group(['middleware' => ['role:superadmin']], function () {
     Route::resource('paket-haji', PaketHajiController::class);
     Route::resource('jadwal-keberangkatan', JadwalKeberangkatanController::class);
     Route::resource('pertanyaan', PertanyaanUmumController::class);
+    Route::resource('pertanyaan-belum-terjawab', PertanyaanBelumTerjawabController::class)->except(['create', 'store', 'show']);
     Route::resource('calon-jemaah', CalonJemaahController::class);
     Route::resource('jadwal-manasik', JadwalManasikController::class);
+    Route::resource('ulasan', App\Http\Controllers\superadmin\UlasanController::class)->only(['index', 'update', 'destroy']);
     Route::get('user-jemaah', [UserJemaahController::class, 'index'])->name('user-jemaah.index');
     Route::post('user-jemaah/{user}/generate-code', [UserJemaahController::class, 'generateCode'])->name('user-jemaah.generateCode');
     Route::post('user-jemaah/{user}/activate', [UserJemaahController::class, 'activate'])->name('user-jemaah.activate');

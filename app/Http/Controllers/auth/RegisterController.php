@@ -62,11 +62,11 @@ class RegisterController extends Controller
                 'is_active' => false,
             ]);
 
-            Alert::success('Pendaftaran berhasil!', 'Akun Anda berhasil dibuat. Silakan minta kode login ke admin untuk mengaktifkan akun.')->persistent(true);
-            return redirect()->route('login');
-            
+            Alert::success('Pendaftaran Berhasil', 'Akun Anda berhasil dibuat. Silakan lakukan aktivasi akun.')->persistent(true);
+            return redirect()->route('activation.form', $user->id);
+
         } catch (\Exception $e) {
-            Alert::error('Gagal mendaftar', 'Terjadi kesalahan saat mendaftar. Silakan coba lagi.');
+            Alert::error('Pendaftaran Gagal', 'Terjadi kesalahan saat melakukan pendaftaran. Silakan coba kembali.');
             return back()->withInput();
         }
     }

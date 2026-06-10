@@ -75,22 +75,38 @@
                     </a>
                 </div>
                 <div class="hidden md:flex space-x-8 items-center">
-                    <a href="{{ route('home') }}" class="text-gray-700 hover:text-brand-600 font-medium transition-colors {{ request()->routeIs('home') ? 'text-brand-600 font-bold' : '' }}">Beranda</a>
-                    <a href="{{ route('user.paket') }}" class="text-gray-700 hover:text-brand-600 font-medium transition-colors {{ request()->routeIs('user.paket*') ? 'text-brand-600 font-bold' : '' }}">Paket Haji</a>
-                    <a href="{{ route('user.informasi') }}" class="text-gray-700 hover:text-brand-600 font-medium transition-colors {{ request()->routeIs('user.informasi*') ? 'text-brand-600 font-bold' : '' }}">Informasi</a>
                     @auth
-                        <a href="{{ route('user.jadwal-manasik') }}" class="text-gray-700 hover:text-brand-600 font-medium transition-colors {{ request()->routeIs('user.jadwal-manasik*') ? 'text-brand-600 font-bold' : '' }}">Jadwal Manasik</a>
                         @if(Auth::user()->role == 'superadmin')
+                            {{-- Superadmin Navbar --}}
+                            <a href="{{ route('home') }}" class="text-gray-700 hover:text-brand-600 font-medium transition-colors {{ request()->routeIs('home') ? 'text-brand-600 font-bold' : '' }}">Beranda</a>
                             <a href="{{ route('dashboard-superadmin') }}" class="bg-brand-600 text-white px-6 py-2 rounded-full font-medium hover:bg-brand-700 transition-colors shadow-lg shadow-brand-500/30">
                                 Dashboard
                             </a>
+                        @elseif(Auth::user()->calonJemaahs()->exists())
+                            {{-- Navbar Calon Jemaah Terdaftar: hanya 3 menu --}}
+                            <a href="{{ route('jemaah.dashboard') }}" class="text-gray-700 hover:text-brand-600 font-medium transition-colors {{ request()->routeIs('jemaah.dashboard') ? 'text-brand-600 font-bold' : '' }}">Dashboard</a>
+                            <a href="{{ route('user.informasi') }}" class="text-gray-700 hover:text-brand-600 font-medium transition-colors {{ request()->routeIs('user.informasi*') ? 'text-brand-600 font-bold' : '' }}">Informasi</a>
+                            <a href="{{ route('logout') }}" class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full font-medium transition-colors shadow-lg shadow-red-500/30 flex items-center gap-2">
+                                <i class="fa-solid fa-arrow-right-from-bracket text-sm"></i> Logout
+                            </a>
                         @else
+                            {{-- Navbar User Biasa --}}
+                            <a href="{{ route('home') }}" class="text-gray-700 hover:text-brand-600 font-medium transition-colors {{ request()->routeIs('home') ? 'text-brand-600 font-bold' : '' }}">Beranda</a>
+                            <a href="{{ route('user.paket') }}" class="text-gray-700 hover:text-brand-600 font-medium transition-colors {{ request()->routeIs('user.paket*') ? 'text-brand-600 font-bold' : '' }}">Paket Haji</a>
+                            <a href="{{ route('user.informasi') }}" class="text-gray-700 hover:text-brand-600 font-medium transition-colors {{ request()->routeIs('user.informasi*') ? 'text-brand-600 font-bold' : '' }}">Informasi</a>
+                            <a href="{{ route('user.ulasan') }}" class="text-gray-700 hover:text-brand-600 font-medium transition-colors {{ request()->routeIs('user.ulasan*') ? 'text-brand-600 font-bold' : '' }}">Ulasan</a>
+                            <a href="{{ route('user.jadwal-manasik') }}" class="text-gray-700 hover:text-brand-600 font-medium transition-colors {{ request()->routeIs('user.jadwal-manasik*') ? 'text-brand-600 font-bold' : '' }}">Jadwal Manasik</a>
                             <a href="{{ route('user.profil') }}" class="flex items-center gap-2 text-gray-700 hover:text-brand-600 font-medium transition-colors">
                                 <img src="{{ Auth::user()->foto_profile ? asset(Auth::user()->foto_profile) : 'https://ui-avatars.com/api/?name='.urlencode(Auth::user()->name).'&background=14b8a6&color=fff' }}" alt="Profile" class="w-8 h-8 rounded-full object-cover">
                                 <span>{{ explode(' ', Auth::user()->name)[0] }}</span>
                             </a>
                         @endif
                     @else
+                        {{-- Navbar Guest --}}
+                        <a href="{{ route('home') }}" class="text-gray-700 hover:text-brand-600 font-medium transition-colors {{ request()->routeIs('home') ? 'text-brand-600 font-bold' : '' }}">Beranda</a>
+                        <a href="{{ route('user.paket') }}" class="text-gray-700 hover:text-brand-600 font-medium transition-colors {{ request()->routeIs('user.paket*') ? 'text-brand-600 font-bold' : '' }}">Paket Haji</a>
+                        <a href="{{ route('user.informasi') }}" class="text-gray-700 hover:text-brand-600 font-medium transition-colors {{ request()->routeIs('user.informasi*') ? 'text-brand-600 font-bold' : '' }}">Informasi</a>
+                        <a href="{{ route('user.ulasan') }}" class="text-gray-700 hover:text-brand-600 font-medium transition-colors {{ request()->routeIs('user.ulasan*') ? 'text-brand-600 font-bold' : '' }}">Ulasan</a>
                         <a href="{{ route('login') }}" class="bg-brand-600 text-white px-6 py-2 rounded-full font-medium hover:bg-brand-700 transition-colors shadow-lg shadow-brand-500/30">
                             Masuk
                         </a>
@@ -107,17 +123,31 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-white shadow-xl absolute w-full">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col">
-                <a href="{{ route('home') }}" class="text-gray-700 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('home') ? 'bg-gray-50 text-brand-600' : '' }}">Beranda</a>
-                <a href="{{ route('user.paket') }}" class="text-gray-700 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('user.paket*') ? 'bg-gray-50 text-brand-600' : '' }}">Paket Haji</a>
-                <a href="{{ route('user.informasi') }}" class="text-gray-700 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('user.informasi*') ? 'bg-gray-50 text-brand-600' : '' }}">Informasi</a>
                 @auth
-                    <a href="{{ route('user.jadwal-manasik') }}" class="text-gray-700 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('user.jadwal-manasik*') ? 'bg-gray-50 text-brand-600' : '' }}">Jadwal Manasik</a>
                     @if(Auth::user()->role == 'superadmin')
+                        {{-- Superadmin Mobile --}}
+                        <a href="{{ route('home') }}" class="text-gray-700 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('home') ? 'bg-gray-50 text-brand-600' : '' }}">Beranda</a>
                         <a href="{{ route('dashboard-superadmin') }}" class="text-brand-600 font-bold hover:bg-gray-50 block px-3 py-2 rounded-md text-base">Dashboard</a>
+                    @elseif(Auth::user()->calonJemaahs()->exists())
+                        {{-- Calon Jemaah Mobile: hanya 3 menu --}}
+                        <a href="{{ route('jemaah.dashboard') }}" class="block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('jemaah.dashboard') ? 'bg-brand-50 text-brand-600 font-bold' : 'text-gray-700 hover:bg-gray-50' }}">Dashboard</a>
+                        <a href="{{ route('user.informasi') }}" class="block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('user.informasi*') ? 'bg-brand-50 text-brand-600 font-bold' : 'text-gray-700 hover:bg-gray-50' }}">Informasi</a>
+                        <a href="{{ route('logout') }}" class="text-red-600 font-bold hover:bg-red-50 block px-3 py-2 rounded-md text-base">Logout</a>
                     @else
+                        {{-- User Biasa Mobile --}}
+                        <a href="{{ route('home') }}" class="text-gray-700 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('home') ? 'bg-gray-50 text-brand-600' : '' }}">Beranda</a>
+                        <a href="{{ route('user.paket') }}" class="text-gray-700 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('user.paket*') ? 'bg-gray-50 text-brand-600' : '' }}">Paket Haji</a>
+                        <a href="{{ route('user.informasi') }}" class="text-gray-700 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('user.informasi*') ? 'bg-gray-50 text-brand-600' : '' }}">Informasi</a>
+                        <a href="{{ route('user.ulasan') }}" class="text-gray-700 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('user.ulasan*') ? 'bg-gray-50 text-brand-600' : '' }}">Ulasan</a>
+                        <a href="{{ route('user.jadwal-manasik') }}" class="text-gray-700 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('user.jadwal-manasik*') ? 'bg-gray-50 text-brand-600' : '' }}">Jadwal Manasik</a>
                         <a href="{{ route('user.profil') }}" class="text-brand-600 font-bold hover:bg-gray-50 block px-3 py-2 rounded-md text-base">Profil Saya</a>
                     @endif
                 @else
+                    {{-- Guest Mobile --}}
+                    <a href="{{ route('home') }}" class="text-gray-700 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('home') ? 'bg-gray-50 text-brand-600' : '' }}">Beranda</a>
+                    <a href="{{ route('user.paket') }}" class="text-gray-700 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('user.paket*') ? 'bg-gray-50 text-brand-600' : '' }}">Paket Haji</a>
+                    <a href="{{ route('user.informasi') }}" class="text-gray-700 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('user.informasi*') ? 'bg-gray-50 text-brand-600' : '' }}">Informasi</a>
+                    <a href="{{ route('user.ulasan') }}" class="text-gray-700 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('user.ulasan*') ? 'bg-gray-50 text-brand-600' : '' }}">Ulasan</a>
                     <a href="{{ route('login') }}" class="text-brand-600 font-bold hover:bg-gray-50 block px-3 py-2 rounded-md text-base">Masuk</a>
                 @endauth
             </div>
@@ -157,8 +187,11 @@
                     <h3 class="text-lg font-semibold mb-4 text-white">Tautan Cepat</h3>
                     <ul class="space-y-2">
                         <li><a href="{{ route('home') }}" class="text-gray-400 hover:text-brand-400 transition-colors">Beranda</a></li>
-                        <li><a href="{{ route('user.paket') }}" class="text-gray-400 hover:text-brand-400 transition-colors">Paket Haji & Umrah</a></li>
+                        @if(!Auth::check() || !Auth::user()->calonJemaahs()->exists())
+                            <li><a href="{{ route('user.paket') }}" class="text-gray-400 hover:text-brand-400 transition-colors">Paket Haji & Umrah</a></li>
+                        @endif
                         <li><a href="{{ route('user.informasi') }}" class="text-gray-400 hover:text-brand-400 transition-colors">Artikel & Informasi</a></li>
+                        <li><a href="{{ route('user.ulasan') }}" class="text-gray-400 hover:text-brand-400 transition-colors">Ulasan &amp; Testimoni</a></li>
                     </ul>
                 </div>
                 <div>

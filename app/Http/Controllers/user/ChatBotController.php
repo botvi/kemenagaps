@@ -169,22 +169,41 @@ class ChatBotController extends Controller
 
         // F. FALLBACK JIKA SISTEM TIDAK MENDETEKSI INTENT (SEARCH SEMUA MODEL)
         if (empty(trim($reply))) {
-            $queryInfo = Informasi::where('published', true);
-            $queryPaket = PaketHaji::where('published', true);
-            $queryManasik = JadwalManasik::query();
-            
             $hasKeyword = false;
-
             foreach ($words as $word) {
                 if (strlen($word) > 3) {
                     $hasKeyword = true;
-                    $queryInfo->orWhere('judul', 'like', "%{$word}%")->orWhere('konten', 'like', "%{$word}%");
-                    $queryPaket->orWhere('nama_paket', 'like', "%{$word}%")->orWhere('fasilitas', 'like', "%{$word}%");
-                    $queryManasik->orWhere('judul_kegiatan', 'like', "%{$word}%")->orWhere('lokasi', 'like', "%{$word}%")->orWhere('pemateri', 'like', "%{$word}%");
+                    break;
                 }
             }
 
             if ($hasKeyword) {
+                $queryInfo = Informasi::where('published', true)->where(function ($q) use ($words) {
+                    foreach ($words as $word) {
+                        if (strlen($word) > 3) {
+                            $q->orWhere('judul', 'like', "%{$word}%")->orWhere('konten', 'like', "%{$word}%");
+                        }
+                    }
+                });
+
+                $queryPaket = PaketHaji::where('published', true)->where(function ($q) use ($words) {
+                    foreach ($words as $word) {
+                        if (strlen($word) > 3) {
+                            $q->orWhere('nama_paket', 'like', "%{$word}%")->orWhere('fasilitas', 'like', "%{$word}%");
+                        }
+                    }
+                });
+
+                $queryManasik = JadwalManasik::where(function ($q) use ($words) {
+                    foreach ($words as $word) {
+                        if (strlen($word) > 3) {
+                            $q->orWhere('judul_kegiatan', 'like', "%{$word}%")
+                              ->orWhere('lokasi', 'like', "%{$word}%")
+                              ->orWhere('pemateri', 'like', "%{$word}%");
+                        }
+                    }
+                });
+
                 $paketMatches = $queryPaket->take(2)->get();
                 $infoMatches = $queryInfo->take(2)->get();
                 $manasikMatches = $queryManasik->take(2)->get();
@@ -213,6 +232,19 @@ class ChatBotController extends Controller
 
         // G. JAWABAN DEFAULT JIKA BENAR-BENAR TIDAK ADA KECOCOKAN
         if (empty(trim($reply))) {
+            $cleanMessage = trim($request->input('message'));
+            if (strlen($cleanMessage) > 3) {
+                $existing = \App\Models\PertanyaanBelumTerjawab::whereRaw('LOWER(pertanyaan) = ?', [strtolower($cleanMessage)])->first();
+                if ($existing) {
+                    $existing->increment('jumlah_ditanyakan');
+                } else {
+                    \App\Models\PertanyaanBelumTerjawab::create([
+                        'pertanyaan' => $cleanMessage,
+                        'jumlah_ditanyakan' => 1
+                    ]);
+                }
+            }
+            
             $reply = "Maaf, saya kurang paham maksud Anda. 🤔\n\nCoba ketikkan:\n- 'Paket haji'\n- 'Harga umrah'\n- 'Jadwal keberangkatan'\n- 'Jadwal manasik'\n- 'Jumlah jemaah'\n- 'Informasi terbaru'";
         }
 
