@@ -36,6 +36,7 @@
                                         <th>No</th>
                                         <th>Nama User</th>
                                         <th>Paket Haji</th>
+                                        <th>Tahun Pendaftaran</th>
                                         <th>Kode Login</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -45,7 +46,8 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->user->name }}</td>
-                                        <td>{{ $item->jadwalKeberangkatan->paketHaji->nama_paket }}</td>
+                                        <td>{{ $item->paketHaji->nama_paket ?? '-' }}</td>
+                                        <td>{{ $item->tahun_pendaftaran }}</td>
                                         <td>{{ $item->kodelogin }}</td>
                                        
                                         <td>

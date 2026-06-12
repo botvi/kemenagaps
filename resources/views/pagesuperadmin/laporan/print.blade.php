@@ -216,12 +216,10 @@
                 <tr>
                     <th style="width:28px;">No</th>
                     <th style="width:130px;">Nama Jemaah</th>
-                    <th style="width:100px;">Email</th>
                     <th style="width:90px;">No. WA</th>
                     <th style="width:40px;">Usia</th>
                     <th style="width:65px;">Jenis Kelamin</th>
                     <th style="width:110px;">Paket Haji</th>
-                    <th style="width:90px;">Jadwal Berangkat</th>
                     <th style="width:75px;">Status</th>
                     <th style="width:75px;">Tgl Daftar</th>
                 </tr>
@@ -231,7 +229,6 @@
                 <tr>
                     <td class="text-center">{{ $loop->iteration }}</td>
                     <td>{{ $item->user->name ?? '-' }}</td>
-                    <td>{{ $item->user->email ?? '-' }}</td>
                     <td>{{ $item->user->no_wa ?? '-' }}</td>
                     <td class="text-center">{{ $item->user->usia ?? '-' }}</td>
                     <td class="text-center">
@@ -242,13 +239,7 @@
                         @else
                             <span class="text-muted">-</span>
                         @endif
-                    </td>
-                    <td>{{ $item->jadwalKeberangkatan->paketHaji->nama_paket ?? '-' }}</td>
-                    <td class="text-center">
-                        {{ $item->jadwalKeberangkatan
-                            ? \Carbon\Carbon::parse($item->jadwalKeberangkatan->tanggal_keberangkatan)->translatedFormat('d M Y')
-                            : '-' }}
-                    </td>
+                    <td>{{ $item->paketHaji->nama_paket ?? '-' }}</td>
                     <td class="text-center">
                         @php
                             $bMap = [

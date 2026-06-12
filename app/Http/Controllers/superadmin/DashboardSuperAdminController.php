@@ -47,7 +47,7 @@ class DashboardSuperAdminController extends Controller
       $yearLabels = array_map('strval', $years);
       $yearData   = [];
       foreach ($years as $year) {
-         $yearData[] = CalonJemaah::whereYear('created_at', $year)->count();
+         $yearData[] = CalonJemaah::where('tahun_pendaftaran', $year)->count();
       }
 
       return view('pagesuperadmin.dashboard.index', compact(

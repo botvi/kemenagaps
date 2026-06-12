@@ -9,8 +9,8 @@ class PaketHaji extends Model
 {
     protected $guarded = [];
 
-    public function jadwalKeberangkatan()
+    public function calonJemaahs()
     {
-        return $this->hasMany(JadwalKeberangkatan::class);
+        return $this->hasMany(CalonJemaah::class);
     }
 }

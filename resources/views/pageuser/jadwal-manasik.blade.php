@@ -1,4 +1,4 @@
-﻿@extends('pageuser.layout')
+@extends('pageuser.layout')
 
 @section('content')
     <!-- Page Header -->
@@ -43,6 +43,10 @@
                             <div class="flex items-center gap-3">
                                 <i class="fa-solid fa-user-tie text-gray-400 w-5 text-center"></i>
                                 <span>Pemateri: <strong>{{ $jadwal->pemateri }}</strong></span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-microphone text-gray-400 w-5 text-center"></i>
+                                <span>Moderator: <strong>{{ $jadwal->moderator }}</strong></span>
                             </div>
                         </div>
                         

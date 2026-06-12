@@ -8,28 +8,29 @@ use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
 use App\Models\User;
-use App\Models\JadwalKeberangkatan;
+use App\Models\PaketHaji;
 
 class CalonJemaahController extends Controller
 {
     public function index()
     {
-        $calonJemaah = CalonJemaah::with(['user', 'jadwalKeberangkatan.paketHaji'])->latest()->get();
+        $calonJemaah = CalonJemaah::with(['user', 'paketHaji'])->latest()->get();
         return view('pagesuperadmin.calon-jemaah.index', compact('calonJemaah'));
     }
 
     public function create()
     {
         $users = User::where('role', 'user')->get();
-        $jadwalKeberangkatan = JadwalKeberangkatan::with('paketHaji')->where('is_active', true)->get();
-        return view('pagesuperadmin.calon-jemaah.create', compact('users', 'jadwalKeberangkatan'));
+        $paketHaji = PaketHaji::all();
+        return view('pagesuperadmin.calon-jemaah.create', compact('users', 'paketHaji'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'user_id' => 'required|exists:users,id',
-            'jadwal_keberangkatan_id' => 'required|exists:jadwal_keberangkatans,id',
+            'tahun_pendaftaran' => 'required',
+            'paket_haji_id' => 'required|exists:paket_hajis,id',
             'kodelogin' => 'required|unique:calon_jemaahs,kodelogin',
         ]);
 
@@ -52,15 +53,16 @@ class CalonJemaahController extends Controller
     public function edit(CalonJemaah $calonJemaah)
     {
         $users = User::where('role', 'user')->get();
-        $jadwalKeberangkatan = JadwalKeberangkatan::with('paketHaji')->where('is_active', true)->get();
-        return view('pagesuperadmin.calon-jemaah.edit', compact('calonJemaah', 'users', 'jadwalKeberangkatan'));
+        $paketHaji = PaketHaji::all();
+        return view('pagesuperadmin.calon-jemaah.edit', compact('calonJemaah', 'users', 'paketHaji'));
     }
 
     public function update(Request $request, CalonJemaah $calonJemaah)
     {
         $request->validate([
             'user_id' => 'required|exists:users,id',
-            'jadwal_keberangkatan_id' => 'required|exists:jadwal_keberangkatans,id',
+            'tahun_pendaftaran' => 'required',
+            'paket_haji_id' => 'required|exists:paket_hajis,id',
             'kodelogin' => 'required|unique:calon_jemaahs,kodelogin,' . $calonJemaah->id,
         ]);
 

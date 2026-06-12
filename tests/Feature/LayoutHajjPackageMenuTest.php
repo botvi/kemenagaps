@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use App\Models\PaketHaji;
-use App\Models\JadwalKeberangkatan;
 use App\Models\CalonJemaah;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -33,7 +32,6 @@ class LayoutHajjPackageMenuTest extends TestCase
         $user->role = 'user';
         $user->username = 'testregular_' . $id;
         $user->name = 'Test Regular User';
-        $user->email = 'testregular_' . $id . '@example.com';
         $user->password = bcrypt('password');
         $user->save();
 
@@ -56,7 +54,6 @@ class LayoutHajjPackageMenuTest extends TestCase
         $user->role = 'user';
         $user->username = 'testpilgrim_' . $id;
         $user->name = 'Test Pilgrim User';
-        $user->email = 'testpilgrim_' . $id . '@example.com';
         $user->password = bcrypt('password');
         $user->save();
 
@@ -69,18 +66,11 @@ class LayoutHajjPackageMenuTest extends TestCase
             'published' => true,
         ]);
 
-        // 3. Create Jadwal Keberangkatan
-        $jadwal = JadwalKeberangkatan::create([
-            'paket_haji_id' => $paket->id,
-            'tanggal_keberangkatan' => now()->addYear()->format('Y-m-d'),
-            'kuota' => 40,
-            'is_active' => true,
-        ]);
-
-        // 4. Create Calon Jemaah
+        // 3. Create Calon Jemaah linked directly to Paket Haji
         CalonJemaah::create([
             'user_id' => $user->id,
-            'jadwal_keberangkatan_id' => $jadwal->id,
+            'paket_haji_id' => $paket->id,
+            'tahun_pendaftaran' => now()->year,
             'kodelogin' => 'TEST_PILGRIM_CODE_2',
             'status_pendaftaran' => 'dikonfirmasi',
         ]);

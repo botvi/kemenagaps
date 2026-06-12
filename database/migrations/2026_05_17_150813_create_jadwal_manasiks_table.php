@@ -18,8 +18,7 @@ return new class extends Migration {
             $table->time('waktu_selesai');
             $table->string('lokasi');
             $table->string('pemateri');
-            $table->integer('kuota_peserta')->nullable();
-            $table->text('deskripsi')->nullable();
+            $table->string('moderator');
             $table->string('status');
             $table->string('jenis_manasik')->nullable(); // haji / umroh
             $table->integer('pertemuan_ke')->nullable();

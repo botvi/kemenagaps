@@ -41,12 +41,7 @@
                                 <span>Maskapai: <strong>{{ $paket->maskapai }}</strong></span>
                             </div>
                             @endif
-                            @if($paket->jadwalKeberangkatan && $paket->jadwalKeberangkatan->count() > 0)
-                            <div class="flex items-center gap-3">
-                                <i class="fa-regular fa-calendar-days text-gray-400 w-5 text-center"></i>
-                                <span>Berangkat: <strong>{{ \Carbon\Carbon::parse($paket->jadwalKeberangkatan->first()->tanggal_keberangkatan)->translatedFormat('d M Y') }}</strong></span>
-                            </div>
-                            @endif
+
                         </div>
                         
                         <a href="{{ route('user.paket.detail', $paket->id) }}" class="block w-full py-3 px-4 bg-brand-50 text-brand-700 text-center rounded-xl font-semibold hover:bg-brand-600 hover:text-white transition-colors">

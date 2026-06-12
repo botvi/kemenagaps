@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\PertanyaanUmum;
 use App\Models\PaketHaji;
 use App\Models\Informasi;
-use App\Models\JadwalKeberangkatan;
 use App\Models\JadwalManasik;
 use App\Models\CalonJemaah;
 
@@ -69,52 +68,24 @@ class ChatBotController extends Controller
             }
         }
 
-        // B. JIKA BERTANYA JUMLAH JEMAAH ATAU KUOTA PER PAKET/JADWAL
+        // B. JIKA BERTANYA JUMLAH JEMAAH PER PAKET
         if ($isJemaah) {
-            $jadwals = JadwalKeberangkatan::where('is_active', true)
-                ->where('tanggal_keberangkatan', '>=', now())
-                ->with('paketHaji')
-                ->orderBy('tanggal_keberangkatan', 'asc')
-                ->get();
-            if ($jadwals->count() > 0) {
-                $reply .= "Berikut informasi jumlah jemaah dan kuota per jadwal paket:\n";
-                foreach ($jadwals as $jadwal) {
-                    $namaPaket = $jadwal->paketHaji ? $jadwal->paketHaji->nama_paket : 'Paket Tidak Diketahui';
-                    $tanggal = \Carbon\Carbon::parse($jadwal->tanggal_keberangkatan)->translatedFormat('d F Y');
-                    
-                    // Menghitung spesifik dari model CalonJemaah untuk paket dan jadwal tersebut
-                    $jumlahPendaftar = CalonJemaah::where('jadwal_keberangkatan_id', $jadwal->id)->count();
-                    $sisaKuota = max(0, $jadwal->kuota - $jumlahPendaftar);
-                    
-                    $reply .= "👥 **{$namaPaket}** ({$tanggal})\n";
-                    $reply .= "   Kapasitas: {$jadwal->kuota} orang | Pendaftar: {$jumlahPendaftar} jemaah | Sisa Kuota: {$sisaKuota} orang\n\n";
+            $pakets = PaketHaji::where('published', true)->get();
+            if ($pakets->count() > 0) {
+                $reply .= "Berikut informasi jumlah jemaah terdaftar per paket:\n";
+                foreach ($pakets as $paket) {
+                    $jumlahPendaftar = CalonJemaah::where('paket_haji_id', $paket->id)->count();
+                    $reply .= "👥 **{$paket->nama_paket}**\n";
+                    $reply .= "   Pendaftar: {$jumlahPendaftar} jemaah\n\n";
                 }
             } else {
-                $reply .= "Saat ini belum ada informasi keberangkatan dan kuota yang aktif.\n\n";
+                $reply .= "Saat ini belum ada paket haji yang aktif.\n\n";
             }
         }
 
         // C. JIKA BERTANYA JADWAL / KEBERANGKATAN UMUM
         if ($isJadwal && !$isManasik && !$isJemaah) {
-            $jadwals = JadwalKeberangkatan::where('is_active', true)
-                ->where('tanggal_keberangkatan', '>=', now())
-                ->with('paketHaji')
-                ->orderBy('tanggal_keberangkatan', 'asc')
-                ->take(4)
-                ->get();
-            if ($jadwals->count() > 0) {
-                $reply .= "Berikut jadwal keberangkatan terdekat yang masih aktif:\n";
-                foreach ($jadwals as $jadwal) {
-                    $tanggal = \Carbon\Carbon::parse($jadwal->tanggal_keberangkatan)->translatedFormat('d F Y');
-                    $jumlahPendaftar = CalonJemaah::where('jadwal_keberangkatan_id', $jadwal->id)->count();
-                    $sisaKuota = max(0, $jadwal->kuota - $jumlahPendaftar);
-                    $namaPaket = $jadwal->paketHaji ? $jadwal->paketHaji->nama_paket : 'Paket Tidak Diketahui';
-                    $reply .= "✈️ **{$namaPaket}** — Berangkat: {$tanggal} (Sisa Kuota: {$sisaKuota} orang)\n";
-                }
-                $reply .= "\n";
-            } else {
-                $reply .= "Maaf, saat ini belum ada jadwal keberangkatan terdekat yang aktif.\n\n";
-            }
+            $reply .= "Untuk jadwal keberangkatan terperinci masing-masing paket, silakan hubungi admin atau lihat di menu Detail Paket Haji.\n\n";
         }
 
         // D. JIKA BERTANYA HARGA, FASILITAS, ATAU PAKET

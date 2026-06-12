@@ -108,12 +108,10 @@
                                         <th style="width:40px;">No</th>
                                         <th>Nama Jemaah</th>
                                         <th>Username</th>
-                                        <th>Email</th>
                                         <th>No. WA</th>
                                         <th>Usia</th>
                                         <th>Jenis Kelamin</th>
                                         <th>Paket Haji</th>
-                                        <th>Jadwal Keberangkatan</th>
                                         <th>Status</th>
                                         <th>Tgl Daftar</th>
                                     </tr>
@@ -124,7 +122,6 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->user->name ?? '-' }}</td>
                                         <td>{{ $item->user->username ?? '-' }}</td>
-                                        <td>{{ $item->user->email ?? '-' }}</td>
                                         <td>{{ $item->user->no_wa ?? '-' }}</td>
                                         <td>{{ $item->user->usia ? $item->user->usia . ' thn' : '-' }}</td>
                                         <td>
@@ -135,13 +132,7 @@
                                             @else
                                                 <span class="text-muted">-</span>
                                             @endif
-                                        </td>
-                                        <td>{{ $item->jadwalKeberangkatan->paketHaji->nama_paket ?? '-' }}</td>
-                                        <td>
-                                            {{ $item->jadwalKeberangkatan
-                                                ? \Carbon\Carbon::parse($item->jadwalKeberangkatan->tanggal_keberangkatan)->translatedFormat('d F Y')
-                                                : '-' }}
-                                        </td>
+                                        <td>{{ $item->paketHaji->nama_paket ?? '-' }}</td>
                                         <td>
                                             @php
                                                 $badgeMap = [

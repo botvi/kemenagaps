@@ -19,7 +19,6 @@ class SuperadminSeeder extends Seeder
             'username' => 'superadmin',
             'name' => 'Superadmin',
             'role' => 'superadmin',
-            'email' => 'superadmin@gmail.com',
             'foto_profile' => 'https://lh3.googleusercontent.com/a/ACg8ocJroOovPBUo7cGCcixp-sCq9_hQ9fvBvR_g7flBSsRck8-yvXkf=s96-c',
             'no_wa' => '082211104642',
             'usia' => '30',

@@ -14,8 +14,8 @@ class CalonJemaah extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function jadwalKeberangkatan()
+    public function paketHaji()
     {
-        return $this->belongsTo(JadwalKeberangkatan::class);
+        return $this->belongsTo(PaketHaji::class);
     }
 }

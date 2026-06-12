@@ -53,15 +53,7 @@
                     <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-5 py-3 text-center">
                         <p class="text-brand-100 text-xs mb-1">Paket Pilihan</p>
                         <p class="text-sm font-bold text-white">
-                            {{ $calonJemaah->jadwalKeberangkatan->paketHaji->nama_paket ?? '-' }}
-                        </p>
-                    </div>
-
-                    {{-- Keberangkatan --}}
-                    <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-5 py-3 text-center">
-                        <p class="text-brand-100 text-xs mb-1">Tanggal Keberangkatan</p>
-                        <p class="text-sm font-bold text-white">
-                            {{ $calonJemaah->jadwalKeberangkatan ? \Carbon\Carbon::parse($calonJemaah->jadwalKeberangkatan->tanggal_keberangkatan)->translatedFormat('d F Y') : '-' }}
+                            {{ $calonJemaah->paketHaji->nama_paket ?? '-' }}
                         </p>
                     </div>
                 </div>
@@ -154,11 +146,11 @@
                         <h4 class="font-bold text-sm">Cek Estimasi Keberangkatan</h4>
                     </div>
                     <p class="text-brand-100 text-xs mb-4 leading-relaxed">
-                        Cek perkiraan tahun keberangkatan Anda menggunakan Nomor Porsi di situs resmi Kemenag.
+                        Cek perkiraan tahun keberangkatan Anda menggunakan Nomor Porsi di situs resmi Kemenhaj.
                     </p>
                     <a href="https://haji.go.id/estimasi-keberangkatan" target="_blank"
                         class="inline-flex items-center gap-1.5 px-4 py-2 bg-white text-brand-700 text-xs font-bold rounded-full shadow-md hover:bg-brand-50 transition-colors w-full justify-center">
-                        Buka Situs Kemenag <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        Buka Situs Kemenhaj <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                     </a>
                 </div>
             </div>
@@ -212,36 +204,28 @@
                             {{-- Paket --}}
                             <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
                                 <p class="text-xs text-gray-400 mb-1 font-medium">Paket Haji/Umrah</p>
-                                <p class="font-bold text-gray-900">{{ $calonJemaah->jadwalKeberangkatan->paketHaji->nama_paket ?? '-' }}</p>
-                                <span class="text-xs text-brand-600 mt-0.5 block">{{ $calonJemaah->jadwalKeberangkatan->paketHaji->kategori ?? '' }}</span>
-                            </div>
-
-                            {{-- Tanggal Keberangkatan --}}
-                            <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
-                                <p class="text-xs text-gray-400 mb-1 font-medium">Tanggal Keberangkatan</p>
-                                <p class="font-bold text-gray-900">
-                                    {{ $calonJemaah->jadwalKeberangkatan ? \Carbon\Carbon::parse($calonJemaah->jadwalKeberangkatan->tanggal_keberangkatan)->translatedFormat('d F Y') : '-' }}
-                                </p>
+                                <p class="font-bold text-gray-900">{{ $calonJemaah->paketHaji->nama_paket ?? '-' }}</p>
+                                <span class="text-xs text-brand-600 mt-0.5 block">{{ $calonJemaah->paketHaji->kategori ?? '' }}</span>
                             </div>
 
                             {{-- Durasi --}}
                             <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
                                 <p class="text-xs text-gray-400 mb-1 font-medium">Durasi Perjalanan</p>
-                                <p class="font-bold text-gray-900">{{ $calonJemaah->jadwalKeberangkatan->paketHaji->durasi ?? '-' }}</p>
+                                <p class="font-bold text-gray-900">{{ $calonJemaah->paketHaji->durasi ?? '-' }}</p>
                             </div>
 
                             {{-- Maskapai --}}
                             <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
                                 <p class="text-xs text-gray-400 mb-1 font-medium">Maskapai</p>
-                                <p class="font-bold text-gray-900">{{ $calonJemaah->jadwalKeberangkatan->paketHaji->maskapai ?? '-' }}</p>
+                                <p class="font-bold text-gray-900">{{ $calonJemaah->paketHaji->maskapai ?? '-' }}</p>
                             </div>
 
                             {{-- Harga Paket --}}
                             <div class="bg-brand-50 rounded-xl p-4 border border-brand-100">
                                 <p class="text-xs text-brand-500 mb-1 font-medium">Harga Paket</p>
                                 <p class="font-bold text-brand-800 text-lg">
-                                    @if($calonJemaah->jadwalKeberangkatan && $calonJemaah->jadwalKeberangkatan->paketHaji)
-                                        Rp {{ number_format($calonJemaah->jadwalKeberangkatan->paketHaji->harga, 0, ',', '.') }}
+                                    @if($calonJemaah->paketHaji)
+                                        Rp {{ number_format($calonJemaah->paketHaji->harga, 0, ',', '.') }}
                                     @else
                                         -
                                     @endif
@@ -250,10 +234,10 @@
                         </div>
 
                         {{-- Fasilitas Paket --}}
-                        @if($calonJemaah->jadwalKeberangkatan && $calonJemaah->jadwalKeberangkatan->paketHaji && $calonJemaah->jadwalKeberangkatan->paketHaji->fasilitas)
+                        @if($calonJemaah->paketHaji && $calonJemaah->paketHaji->fasilitas)
                         <div class="mt-4 bg-gray-50 rounded-xl p-4 border border-gray-100">
                             <p class="text-xs text-gray-400 mb-2 font-medium">Fasilitas Yang Didapat</p>
-                            <p class="text-gray-700 text-sm leading-relaxed">{{ $calonJemaah->jadwalKeberangkatan->paketHaji->fasilitas }}</p>
+                            <p class="text-gray-700 text-sm leading-relaxed">{{ $calonJemaah->paketHaji->fasilitas }}</p>
                         </div>
                         @endif
                     </div>

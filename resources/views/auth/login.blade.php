@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 
 <head>
@@ -70,11 +70,11 @@
             <div>
                 <label for="username" class="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
                     <ion-icon name="person-outline" class="text-lg"></ion-icon>
-                    Username atau Email
+                    Username
                 </label>
                 <input type="text" id="username" name="username"
                     class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all @error('username') border-red-500 @enderror"
-                    placeholder="Masukkan username atau email" value="{{ old('username') }}" required>
+                    placeholder="Masukkan username" value="{{ old('username') }}" required>
                 @error('username')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
@@ -117,7 +117,25 @@
     </div>
 
     <!-- custom js link -->
-    <script src="{{ asset('linkskuy') }}/assets/js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const togglePassword = document.querySelector('[data-password-toggle]');
+            const passwordInput = document.getElementById('password');
+            
+            if (togglePassword && passwordInput) {
+                togglePassword.addEventListener('click', function() {
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                    
+                    // Toggle icon
+                    const icon = togglePassword.querySelector('ion-icon');
+                    if (icon) {
+                        icon.setAttribute('name', type === 'password' ? 'eye-outline' : 'eye-off-outline');
+                    }
+                });
+            }
+        });
+    </script>
     @include('sweetalert::alert')
 
     <!-- ionicon link -->

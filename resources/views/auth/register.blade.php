@@ -108,19 +108,7 @@
                 @enderror
             </div>
 
-            <!-- Email Field -->
-            <div>
-                <label for="email" class="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
-                    <ion-icon name="mail-outline" class="text-lg"></ion-icon>
-                    Email
-                </label>
-                <input type="email" id="email" name="email"
-                    class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all @error('email') border-red-500 @enderror" placeholder="Masukkan alamat email"
-                    value="{{ old('email') }}" required>
-                @error('email')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </div>
+          
 
             <!-- Usia & Jenis Kelamin -->
             <div class="grid grid-cols-2 gap-4">
@@ -183,12 +171,8 @@
                 </label>
                 <div class="relative password-input-group">
                     <input type="password" id="password_confirmation" name="password_confirmation"
-                        class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all pr-10 @error('password_confirmation') border-red-500 @enderror"
+                        class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all @error('password_confirmation') border-red-500 @enderror"
                         placeholder="Ulangi password Anda" required>
-                    <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 password-toggle" data-password-toggle
-                        aria-label="Toggle password visibility">
-                        <ion-icon name="eye-outline"></ion-icon>
-                    </button>
                 </div>
                 @error('password_confirmation')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -222,7 +206,29 @@
     </div>
 
     <!-- custom js link -->
-    <script src="{{ asset('linkskuy') }}/assets/js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const togglePassword = document.querySelector('[data-password-toggle]');
+            const passwordInput = document.getElementById('password');
+            const passwordConfirmInput = document.getElementById('password_confirmation');
+            
+            if (togglePassword && passwordInput) {
+                togglePassword.addEventListener('click', function() {
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                    if (passwordConfirmInput) {
+                        passwordConfirmInput.setAttribute('type', type);
+                    }
+                    
+                    // Toggle icon
+                    const icon = togglePassword.querySelector('ion-icon');
+                    if (icon) {
+                        icon.setAttribute('name', type === 'password' ? 'eye-outline' : 'eye-off-outline');
+                    }
+                });
+            }
+        });
+    </script>
     @include('sweetalert::alert')
 
     <!-- ionicon link -->

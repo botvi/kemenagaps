@@ -86,6 +86,7 @@
                             {{-- Navbar Calon Jemaah Terdaftar: hanya 3 menu --}}
                             <a href="{{ route('jemaah.dashboard') }}" class="text-gray-700 hover:text-brand-600 font-medium transition-colors {{ request()->routeIs('jemaah.dashboard') ? 'text-brand-600 font-bold' : '' }}">Dashboard</a>
                             <a href="{{ route('user.informasi') }}" class="text-gray-700 hover:text-brand-600 font-medium transition-colors {{ request()->routeIs('user.informasi*') ? 'text-brand-600 font-bold' : '' }}">Informasi</a>
+                                                        <a href="{{ route('user.jadwal-manasik') }}" class="text-gray-700 hover:text-brand-600 font-medium transition-colors {{ request()->routeIs('user.jadwal-manasik*') ? 'text-brand-600 font-bold' : '' }}">Jadwal Manasik</a>
                             <a href="{{ route('logout') }}" class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full font-medium transition-colors shadow-lg shadow-red-500/30 flex items-center gap-2">
                                 <i class="fa-solid fa-arrow-right-from-bracket text-sm"></i> Logout
                             </a>

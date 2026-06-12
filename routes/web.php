@@ -16,7 +16,6 @@ use App\Http\Controllers\superadmin\{
     BrandController,
     InformasiController,
     PaketHajiController,
-    JadwalKeberangkatanController,
     PertanyaanUmumController,
     PertanyaanBelumTerjawabController,
     CalonJemaahController,
@@ -93,7 +92,6 @@ Route::group(['middleware' => ['role:superadmin']], function () {
     Route::post('informasi/upload-image', [InformasiController::class, 'uploadImage'])->name('informasi.upload.image');
     Route::resource('informasi', InformasiController::class);
     Route::resource('paket-haji', PaketHajiController::class);
-    Route::resource('jadwal-keberangkatan', JadwalKeberangkatanController::class);
     Route::resource('pertanyaan', PertanyaanUmumController::class);
     Route::resource('pertanyaan-belum-terjawab', PertanyaanBelumTerjawabController::class)->except(['create', 'store', 'show']);
     Route::resource('calon-jemaah', CalonJemaahController::class);

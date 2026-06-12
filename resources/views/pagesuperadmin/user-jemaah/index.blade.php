@@ -34,7 +34,6 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
-                                        <th>Email</th>
                                         <th>No WA</th>
                                         <th>Usia</th>
                                         <th>Jenis Kelamin</th>
@@ -48,7 +47,6 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->name }}</td>
-                                        <td>{{ $item->email }}</td>
                                         <td>{{ $item->no_wa }}</td>
                                         <td>{{ $item->usia ? $item->usia . ' thn' : '-' }}</td>
                                         <td>

@@ -13,7 +13,7 @@ class LandingController extends Controller
 {
     public function index()
     {
-        $paketHajis = PaketHaji::where('published', true)->with('jadwalKeberangkatan')->take(3)->get();
+        $paketHajis = PaketHaji::where('published', true)->take(3)->get();
         $informasis = Informasi::where('published', true)->latest()->take(3)->get();
         
         return view('pageuser.home', compact('paketHajis', 'informasis'));
@@ -21,13 +21,13 @@ class LandingController extends Controller
 
     public function paket()
     {
-        $paketHajis = PaketHaji::where('published', true)->with('jadwalKeberangkatan')->get();
+        $paketHajis = PaketHaji::where('published', true)->get();
         return view('pageuser.paket', compact('paketHajis'));
     }
 
     public function paketDetail($id)
     {
-        $paket = PaketHaji::where('published', true)->with('jadwalKeberangkatan')->findOrFail($id);
+        $paket = PaketHaji::where('published', true)->findOrFail($id);
         return view('pageuser.paket-detail', compact('paket'));
     }
 

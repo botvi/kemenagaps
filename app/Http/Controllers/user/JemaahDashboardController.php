@@ -16,7 +16,7 @@ class JemaahDashboardController extends Controller
         $user = Auth::user();
 
         // Ambil data calon jemaah beserta relasi paket dan jadwal keberangkatan
-        $calonJemaah = CalonJemaah::with(['jadwalKeberangkatan.paketHaji'])
+        $calonJemaah = CalonJemaah::with(['paketHaji'])
             ->where('user_id', $user->id)
             ->first();
 

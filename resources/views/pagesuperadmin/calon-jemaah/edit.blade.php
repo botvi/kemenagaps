@@ -36,18 +36,24 @@
                                         <select name="user_id" class="form-control" required>
                                             <option value="">Pilih User</option>
                                             @foreach($users as $user)
-                                                <option value="{{ $user->id }}" {{ $calonJemaah->user_id == $user->id ? 'selected' : '' }}>{{ $user->name }} ({{ $user->email }})</option>
+                                                <option value="{{ $user->id }}" {{ $calonJemaah->user_id == $user->id ? 'selected' : '' }}>{{ $user->name }} ({{ $user->username }})</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">Jadwal Keberangkatan</label>
-                                        <select name="jadwal_keberangkatan_id" class="form-control" required>
-                                            <option value="">Pilih Jadwal</option>
-                                            @foreach($jadwalKeberangkatan as $j)
-                                                <option value="{{ $j->id }}" {{ $calonJemaah->jadwal_keberangkatan_id == $j->id ? 'selected' : '' }}>{{ $j->paketHaji->nama_paket }} - {{ $j->tanggal_keberangkatan }} (Sisa Kuota: {{ $j->kuota - $j->kuota_terisi }})</option>
+                                        <label class="form-label">Paket Haji</label>
+                                        <select name="paket_haji_id" class="form-control" required>
+                                            <option value="">Pilih Paket Haji</option>
+                                            @foreach($paketHaji as $p)
+                                                <option value="{{ $p->id }}" {{ $calonJemaah->paket_haji_id == $p->id ? 'selected' : '' }}>{{ $p->nama_paket }} (Rp {{ number_format($p->harga, 0, ',', '.') }})</option>
                                             @endforeach
                                         </select>
+                                    </div>
+                                     <div class="mb-3">
+                                        <label for="tahun_pendaftaran" class="form-label">Tahun Pendaftaran</label>
+                                        <input type="number" name="tahun_pendaftaran" id="tahun_pendaftaran"
+                                            class="form-control" value="{{ $calonJemaah->tahun_pendaftaran }}" required min="1900"
+                                            max="2100">
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Kode Login</label>

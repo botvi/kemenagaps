@@ -40,7 +40,7 @@
 
                     <!-- Highlight Info -->
                     <div
-                        class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 items-center">
+                        class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
                         <div class="flex flex-col items-center text-center gap-2">
                             <div class="w-12 h-12 bg-brand-50 rounded-full flex items-center justify-center text-brand-600 text-xl">
                                 <i class="fa-regular fa-calendar-days"></i>
@@ -68,51 +68,43 @@
                                 <p class="font-bold text-gray-900">{{ $jadwalManasik->lokasi }}</p>
                             </div>
                         </div>
-                        <div class="flex flex-col items-center text-center gap-2">
-                            <div class="w-12 h-12 bg-brand-50 rounded-full flex items-center justify-center text-brand-600 text-xl">
-                                <i class="fa-solid fa-users"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm text-gray-500">Kuota</p>
-                                <p class="font-bold text-gray-900">{{ $jadwalManasik->kuota_peserta ?? 'Tidak Terbatas' }}</p>
-                            </div>
-                        </div>
                     </div>
 
-                    <!-- Deskripsi -->
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                            <i class="fa-solid fa-circle-info text-brand-500"></i> Informasi Kegiatan
-                        </h2>
-                        <div class="prose max-w-none text-gray-600">
-                            @if ($jadwalManasik->deskripsi)
-                                {!! nl2br(e($jadwalManasik->deskripsi)) !!}
-                            @else
-                                <p class="italic">Informasi tambahan belum tersedia.</p>
-                            @endif
-                        </div>
-                    </div>
+
 
                 </div>
 
                 <!-- Sidebar -->
                 <div class="space-y-8">
-                    <!-- Pemateri -->
+                    <!-- Pemateri & Moderator -->
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sticky top-28">
                         <h3
                             class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-3 border-b border-gray-100 pb-4">
-                            <i class="fa-solid fa-user-tie text-brand-500"></i> Pemateri
+                            <i class="fa-solid fa-user-tie text-brand-500"></i> Pemateri & Moderator
                         </h3>
 
+                        <!-- Pemateri -->
                         <div class="flex items-center gap-4 mb-4">
                             <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center text-gray-400 text-2xl flex-shrink-0">
-                                <i class="fa-solid fa-user"></i>
+                                <i class="fa-solid fa-user-tie text-brand-600"></i>
                             </div>
                             <div>
                                 <h4 class="font-bold text-gray-900 text-lg">{{ $jadwalManasik->pemateri }}</h4>
-                                <p class="text-sm text-brand-600 font-medium">Pembimbing Manasik</p>
+                                <p class="text-sm text-gray-500 font-medium">Pemateri / Pembimbing</p>
                             </div>
                         </div>
+
+                        <!-- Moderator -->
+                        <div class="flex items-center gap-4 mb-6 pt-4 border-t border-gray-100">
+                            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center text-gray-400 text-2xl flex-shrink-0">
+                                <i class="fa-solid fa-microphone text-brand-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg">{{ $jadwalManasik->moderator }}</h4>
+                                <p class="text-sm text-gray-500 font-medium">Moderator</p>
+                            </div>
+                        </div>
+
                         <div class="bg-blue-50 text-blue-700 p-4 rounded-xl text-sm flex gap-3 items-start">
                             <i class="fa-solid fa-circle-info mt-1"></i>
                             <p>Pastikan untuk datang 15 menit sebelum kegiatan dimulai dan membawa perlengkapan manasik yang diperlukan.</p>

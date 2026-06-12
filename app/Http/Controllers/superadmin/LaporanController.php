@@ -10,7 +10,7 @@ class LaporanController extends Controller
 {
     public function index(Request $request)
     {
-        $query = CalonJemaah::with(['user', 'jadwalKeberangkatan.paketHaji']);
+        $query = CalonJemaah::with(['user', 'paketHaji']);
 
         // Filter Status Pendaftaran
         if ($request->filled('status')) {
@@ -43,7 +43,7 @@ class LaporanController extends Controller
 
     public function print(Request $request)
     {
-        $query = CalonJemaah::with(['user', 'jadwalKeberangkatan.paketHaji']);
+        $query = CalonJemaah::with(['user', 'paketHaji']);
 
         if ($request->filled('status')) {
             $query->where('status_pendaftaran', $request->status);

@@ -33,12 +33,7 @@
                             <span class="pc-mtext">Paket Haji</span>
                         </a>
                     </li>
-                    <li class="pc-item">
-                        <a href="{{ route('jadwal-keberangkatan.index') }}" class="pc-link">
-                            <span class="pc-micon"><i class="ti ti-calendar"></i></span>
-                            <span class="pc-mtext">Jadwal Keberangkatan</span>
-                        </a>
-                    </li>
+
                     <li class="pc-item">
                         <a href="{{ route('jadwal-manasik.index') }}" class="pc-link">
                             <span class="pc-micon"><i class="ti ti-book"></i></span>

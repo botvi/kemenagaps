@@ -15,7 +15,7 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         // Get the latest registered package if any
-        $calonJemaah = $user->calonJemaahs()->with('jadwalKeberangkatan.paketHaji')->latest()->first();
+        $calonJemaah = $user->calonJemaahs()->with('paketHaji')->latest()->first();
         
         return view('pageuser.profil', compact('user', 'calonJemaah'));
     }

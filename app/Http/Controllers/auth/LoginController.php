@@ -31,11 +31,9 @@ class LoginController extends Controller
         ];
 
         // Jika input mengandung @, anggap sebagai email
-        if (strpos($username, '@') !== false) {
-            $credentials['email'] = $username;
-        } else {
-            $credentials['username'] = $username;
-        }
+
+        $credentials['username'] = $username;
+
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();

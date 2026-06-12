@@ -86,56 +86,21 @@
 
                 <!-- Sidebar -->
                 <div class="space-y-8">
-                    <!-- Jadwal Keberangkatan -->
+                    <!-- Info Pendaftaran -->
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sticky top-28">
                         <h3
                             class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-3 border-b border-gray-100 pb-4">
-                            <i class="fa-regular fa-calendar-days text-brand-500"></i> Jadwal Keberangkatan
+                            <i class="fa-solid fa-file-signature text-brand-500"></i> Pendaftaran Paket
                         </h3>
 
                         <div class="space-y-4">
-                            @auth
-                                @forelse ($paket->jadwalKeberangkatan as $jadwal)
-                                    <div
-                                        class="p-4 rounded-xl border {{ $jadwal->is_active ? 'border-brand-200 bg-brand-50' : 'border-gray-200 bg-gray-50' }}">
-                                        <div class="flex justify-between items-center mb-2">
-                                            <span class="font-bold text-gray-900">
-                                                {{ \Carbon\Carbon::parse($jadwal->tanggal_keberangkatan)->translatedFormat('d F Y') }}
-                                            </span>
-                                            @if ($jadwal->is_active)
-                                                <span
-                                                    class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-bold">Tersedia</span>
-                                            @else
-                                                <span
-                                                    class="text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full font-bold">Penuh</span>
-                                            @endif
-                                        </div>
-                                        <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
-                                            @php
-                                                $percentage =
-                                                    $jadwal->kuota > 0 ? ($jadwal->kuota_terisi / $jadwal->kuota) * 100 : 0;
-                                            @endphp
-                                            <div class="bg-brand-500 h-2 rounded-full" style="width: {{ $percentage }}%">
-                                            </div>
-                                        </div>
-                                        <div class="flex justify-between text-xs text-gray-500">
-                                            <span>Terisi: {{ $jadwal->kuota_terisi }}</span>
-                                            <span>Kuota: {{ $jadwal->kuota }}</span>
-                                        </div>
-                                    </div>
-                                @empty
-                                    <p class="text-gray-500 text-sm text-center py-4">Belum ada jadwal keberangkatan untuk paket
-                                        ini.</p>
-                                @endforelse
-                            @else
-                                <div class="text-center py-6 bg-gray-50 rounded-xl border border-gray-100">
-                                    <i class="fa-solid fa-lock text-gray-400 text-3xl mb-3"></i>
-                                    <p class="text-gray-600 text-sm mb-4 px-4">Silakan login untuk melihat informasi jadwal keberangkatan dan sisa kuota.</p>
-                                    <a href="{{ route('login') }}" class="inline-block bg-brand-600 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-brand-700 transition-colors">
-                                        Masuk Sekarang
-                                    </a>
-                                </div>
-                            @endauth
+                            <p class="text-gray-600 text-sm leading-relaxed">
+                                Tertarik dengan paket <strong>{{ $paket->nama_paket }}</strong>? Silakan hubungi admin kami untuk mendaftar atau berkonsultasi mengenai paket ini.
+                            </p>
+                            <a href="https://wa.me/6281234567890?text=Assalamu'alaikum,%20saya%20tertarik%20dengan%20paket%20{{ urlencode($paket->nama_paket) }}" target="_blank"
+                                class="flex items-center justify-center gap-2 w-full py-3 px-4 bg-green-500 hover:bg-green-600 text-white font-bold rounded-full shadow-lg shadow-green-500/25 transition-all text-sm">
+                                <i class="fa-brands fa-whatsapp text-lg"></i> Hubungi WhatsApp
+                            </a>
                         </div>
                     </div>
                 </div>

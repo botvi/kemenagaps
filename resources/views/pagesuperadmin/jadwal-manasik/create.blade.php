@@ -56,6 +56,10 @@
                                         <label class="form-label">Pemateri</label>
                                         <input type="text" name="pemateri" class="form-control" required>
                                     </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Moderator</label>
+                                        <input type="text" name="moderator" class="form-control" required>
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
@@ -70,10 +74,7 @@
                                         <label class="form-label">Pertemuan Ke</label>
                                         <input type="number" name="pertemuan_ke" class="form-control">
                                     </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Kuota Peserta</label>
-                                        <input type="number" name="kuota_peserta" class="form-control">
-                                    </div>
+
                                     <div class="mb-3">
                                         <label class="form-label">Status</label>
                                         <select name="status" class="form-control" required>
@@ -84,12 +85,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <label class="form-label">Deskripsi</label>
-                                        <textarea name="deskripsi" class="form-control" rows="3"></textarea>
-                                    </div>
-                                </div>
+
                                 <div class="col-md-12 text-end">
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </div>
