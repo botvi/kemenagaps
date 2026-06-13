@@ -18,7 +18,8 @@
             </div>
             <div class="bg-white/10 p-6 rounded-2xl backdrop-blur-sm border border-white/20 text-center md:text-right">
                 <p class="text-brand-100 text-sm mb-1">Harga Mulai Dari</p>
-                <p class="text-3xl font-bold text-white mb-4">Rp {{ number_format($paket->harga, 0, ',', '.') }}</p>
+                <p class="text-3xl font-bold text-white mb-1">Rp {{ number_format($paket->harga, 0, ',', '.') }}</p>
+                <p class="text-[10px] text-brand-100 opacity-80 italic mb-4">*Harga sewaktu-waktu akan berubah sesuai kebijakan pemerintah</p>
                 {{-- <a href="{{ route('login') }}" class="bg-white text-brand-700 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition-colors shadow-lg shadow-black/10 inline-block w-full">
                     Daftar Sekarang
                 </a> --}}

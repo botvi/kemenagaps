@@ -33,15 +33,13 @@
                     <div class="card-body">
                         <form method="GET" action="{{ route('laporan.index') }}" id="filterForm">
                             <div class="row g-3 align-items-end">
-                                <!-- Status Pendaftaran -->
+                                <!-- Status Akun -->
                                 <div class="col-md-3">
-                                    <label class="form-label fw-semibold">Status Pendaftaran</label>
+                                    <label class="form-label fw-semibold">Status Akun</label>
                                     <select name="status" class="form-select">
                                         <option value="">-- Semua Status --</option>
-                                        <option value="pending"      {{ request('status') == 'pending'      ? 'selected' : '' }}>Pending</option>
-                                        <option value="dikonfirmasi" {{ request('status') == 'dikonfirmasi' ? 'selected' : '' }}>Dikonfirmasi</option>
-                                        <option value="ditolak"      {{ request('status') == 'ditolak'      ? 'selected' : '' }}>Ditolak</option>
-                                        <option value="cancel"       {{ request('status') == 'cancel'       ? 'selected' : '' }}>Cancel</option>
+                                        <option value="aktif"    {{ request('status') == 'aktif'    ? 'selected' : '' }}>Aktif</option>
+                                        <option value="nonaktif" {{ request('status') == 'nonaktif' ? 'selected' : '' }}>Nonaktif</option>
                                     </select>
                                 </div>
 
@@ -112,7 +110,7 @@
                                         <th>Usia</th>
                                         <th>Jenis Kelamin</th>
                                         <th>Paket Haji</th>
-                                        <th>Status</th>
+                                        <th>Status Akun</th>
                                         <th>Tgl Daftar</th>
                                     </tr>
                                 </thead>
@@ -134,23 +132,11 @@
                                             @endif
                                         <td>{{ $item->paketHaji->nama_paket ?? '-' }}</td>
                                         <td>
-                                            @php
-                                                $badgeMap = [
-                                                    'pending'      => 'warning',
-                                                    'dikonfirmasi' => 'success',
-                                                    'ditolak'      => 'danger',
-                                                    'cancel'       => 'secondary',
-                                                ];
-                                                $labelMap = [
-                                                    'pending'      => 'Pending',
-                                                    'dikonfirmasi' => 'Dikonfirmasi',
-                                                    'ditolak'      => 'Ditolak',
-                                                    'cancel'       => 'Cancel',
-                                                ];
-                                            @endphp
-                                            <span class="badge bg-{{ $badgeMap[$item->status_pendaftaran] ?? 'secondary' }}">
-                                                {{ $labelMap[$item->status_pendaftaran] ?? $item->status_pendaftaran }}
-                                            </span>
+                                            @if(($item->user->status ?? 'aktif') == 'aktif')
+                                                <span class="badge bg-success">Aktif</span>
+                                            @else
+                                                <span class="badge bg-danger">Nonaktif</span>
+                                            @endif
                                         </td>
                                         <td>{{ $item->created_at->translatedFormat('d M Y') }}</td>
                                     </tr>

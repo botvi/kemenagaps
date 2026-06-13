@@ -26,8 +26,11 @@
                         <div class="flex justify-between items-start mb-4">
                             <h3 class="text-xl font-bold text-gray-900 group-hover:text-brand-600 transition-colors">{{ $paket->nama_paket }}</h3>
                         </div>
-                        <div class="text-brand-600 font-bold text-2xl mb-4">
+                        <div class="text-brand-600 font-bold text-2xl mb-1">
                             Rp {{ number_format($paket->harga, 0, ',', '.') }}
+                        </div>
+                        <div class="text-[10px] text-gray-500 italic mb-4">
+                            *Harga sewaktu-waktu akan berubah sesuai kebijakan pemerintah
                         </div>
                         
                         <div class="space-y-3 mb-6 text-sm text-gray-600 flex-grow">

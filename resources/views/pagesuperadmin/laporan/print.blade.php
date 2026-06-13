@@ -186,14 +186,12 @@
     <!-- INFO FILTER -->
     @php
         $statusLabel = [
-            'pending'      => 'Pending',
-            'dikonfirmasi' => 'Dikonfirmasi',
-            'ditolak'      => 'Ditolak',
-            'cancel'       => 'Cancel',
+            'aktif'    => 'Aktif',
+            'nonaktif' => 'Nonaktif',
         ];
     @endphp
     <div class="filter-info">
-        <span><strong>Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</strong>
+        <span><strong>Status Akun&nbsp;&nbsp;&nbsp;:</strong>
             {{ isset($filters['status']) && $filters['status'] ? ($statusLabel[$filters['status']] ?? $filters['status']) : 'Semua' }}
         </span>
         <span><strong>Jenis Kelamin :</strong>
@@ -220,7 +218,7 @@
                     <th style="width:40px;">Usia</th>
                     <th style="width:65px;">Jenis Kelamin</th>
                     <th style="width:110px;">Paket Haji</th>
-                    <th style="width:75px;">Status</th>
+                    <th style="width:75px;">Status Akun</th>
                     <th style="width:75px;">Tgl Daftar</th>
                 </tr>
             </thead>
@@ -241,23 +239,11 @@
                         @endif
                     <td>{{ $item->paketHaji->nama_paket ?? '-' }}</td>
                     <td class="text-center">
-                        @php
-                            $bMap = [
-                                'pending'      => 'badge-warning',
-                                'dikonfirmasi' => 'badge-success',
-                                'ditolak'      => 'badge-danger',
-                                'cancel'       => 'badge-secondary',
-                            ];
-                            $lMap = [
-                                'pending'      => 'Pending',
-                                'dikonfirmasi' => 'Konfirmasi',
-                                'ditolak'      => 'Ditolak',
-                                'cancel'       => 'Cancel',
-                            ];
-                        @endphp
-                        <span class="badge {{ $bMap[$item->status_pendaftaran] ?? 'badge-secondary' }}">
-                            {{ $lMap[$item->status_pendaftaran] ?? $item->status_pendaftaran }}
-                        </span>
+                        @if(($item->user->status ?? 'aktif') == 'aktif')
+                            <span class="badge badge-success">Aktif</span>
+                        @else
+                            <span class="badge badge-danger">Nonaktif</span>
+                        @endif
                     </td>
                     <td class="text-center">
                         {{ $item->created_at->translatedFormat('d M Y') }}

@@ -55,6 +55,7 @@ class RegisterController extends Controller
                 'role' => 'user',
                 'kode_login' => strtoupper(\Illuminate\Support\Str::random(6)),
                 'is_active' => false,
+                'status' => 'aktif',
             ]);
 
             Alert::success('Pendaftaran Berhasil', 'Akun Anda berhasil dibuat. Silakan lakukan aktivasi akun.')->persistent(true);

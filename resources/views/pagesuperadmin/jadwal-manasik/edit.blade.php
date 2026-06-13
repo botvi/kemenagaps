@@ -68,7 +68,6 @@
                                         <select name="jenis_manasik" class="form-control">
                                             <option value="">Pilih Jenis</option>
                                             <option value="Haji" {{ $jadwalManasik->jenis_manasik == 'Haji' ? 'selected' : '' }}>Haji</option>
-                                            <option value="Umroh" {{ $jadwalManasik->jenis_manasik == 'Umroh' ? 'selected' : '' }}>Umroh</option>
                                         </select>
                                     </div>
                                     <div class="mb-3">

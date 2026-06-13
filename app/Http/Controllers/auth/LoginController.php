@@ -37,6 +37,11 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
+            if ($user->status == 'nonaktif') {
+                Auth::logout();
+                Alert::error('Akun Dinonaktifkan', 'Akun Anda telah dinonaktifkan oleh administrator.');
+                return redirect('/login');
+            }
             if ($user->role == 'superadmin') {
                 Alert::success('Login Berhasil', 'Selamat datang kembali, Superadmin.');
                 return redirect()->route('dashboard-superadmin');

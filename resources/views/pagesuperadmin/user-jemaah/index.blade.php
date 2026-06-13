@@ -59,24 +59,33 @@
                                             @endif
                                         </td>
                                         <td><strong>{{ $item->kode_login }}</strong></td>
+                                     
                                         <td>
-                                            @if($item->is_active)
+                                            @if(($item->status ?? 'aktif') == 'aktif')
                                                 <span class="badge bg-success">Aktif</span>
                                             @else
-                                                <span class="badge bg-warning text-dark">Belum Aktif</span>
+                                                <span class="badge bg-danger">Nonaktif</span>
                                             @endif
                                         </td>
                                         <td>
                                             @if(!$item->is_active)
                                             <form action="{{ route('user-jemaah.activate', $item->id) }}" method="POST" class="d-inline">
                                                 @csrf
-                                                <button type="submit" class="btn btn-sm btn-success" onclick="return confirm('Aktifkan akun jemaah ini?')">Aktifkan Manual</button>
+                                                <button type="submit" class="btn btn-sm btn-success mb-1" onclick="return confirm('Aktifkan akun jemaah ini?')">Aktifkan Manual</button>
                                             </form>
                                             @endif
                                             
                                             <form action="{{ route('user-jemaah.generateCode', $item->id) }}" method="POST" class="d-inline">
                                                 @csrf
-                                                <button type="submit" class="btn btn-sm btn-info" onclick="return confirm('Generate kode login baru untuk jemaah ini?')">Generate Kode</button>
+                                                <button type="submit" class="btn btn-sm btn-info mb-1" onclick="return confirm('Generate kode login baru untuk jemaah ini?')">Generate Kode</button>
+                                            </form>
+
+                                            <form action="{{ route('user-jemaah.updateStatus', $item->id) }}" method="POST" class="d-inline ms-1">
+                                                @csrf
+                                                <select name="status" class="form-select form-select-sm d-inline-block w-auto" onchange="this.form.submit()" style="padding-top: 0.2rem; padding-bottom: 0.2rem;">
+                                                    <option value="aktif" {{ ($item->status ?? 'aktif') == 'aktif' ? 'selected' : '' }}>Aktif</option>
+                                                    <option value="nonaktif" {{ ($item->status ?? 'aktif') == 'nonaktif' ? 'selected' : '' }}>Nonaktif</option>
+                                                </select>
                                             </form>
                                         </td>
                                     </tr>

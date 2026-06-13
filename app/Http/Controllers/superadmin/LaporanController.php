@@ -12,9 +12,11 @@ class LaporanController extends Controller
     {
         $query = CalonJemaah::with(['user', 'paketHaji']);
 
-        // Filter Status Pendaftaran
+        // Filter Status Akun (lewat relasi user)
         if ($request->filled('status')) {
-            $query->where('status_pendaftaran', $request->status);
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('status', $request->status);
+            });
         }
 
         // Filter Jenis Kelamin (lewat relasi user)
@@ -46,7 +48,9 @@ class LaporanController extends Controller
         $query = CalonJemaah::with(['user', 'paketHaji']);
 
         if ($request->filled('status')) {
-            $query->where('status_pendaftaran', $request->status);
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('status', $request->status);
+            });
         }
 
         if ($request->filled('jenis_kelamin')) {

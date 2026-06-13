@@ -67,7 +67,6 @@
                                         <select name="jenis_manasik" class="form-control">
                                             <option value="">Pilih Jenis</option>
                                             <option value="Haji">Haji</option>
-                                            <option value="Umroh">Umroh</option>
                                         </select>
                                     </div>
                                     <div class="mb-3">

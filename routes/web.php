@@ -100,6 +100,7 @@ Route::group(['middleware' => ['role:superadmin']], function () {
     Route::get('user-jemaah', [UserJemaahController::class, 'index'])->name('user-jemaah.index');
     Route::post('user-jemaah/{user}/generate-code', [UserJemaahController::class, 'generateCode'])->name('user-jemaah.generateCode');
     Route::post('user-jemaah/{user}/activate', [UserJemaahController::class, 'activate'])->name('user-jemaah.activate');
+    Route::post('user-jemaah/{user}/status', [UserJemaahController::class, 'updateStatus'])->name('user-jemaah.updateStatus');
 
     // Laporan
     Route::get('laporan', [LaporanController::class, 'index'])->name('laporan.index');

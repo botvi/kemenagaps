@@ -45,6 +45,7 @@
                                     <div class="mb-3">
                                         <label class="form-label">Harga</label>
                                         <input type="number" name="harga" class="form-control" required>
+                                        <small class="text-muted d-block mt-1">*Harga sewaktu-waktu akan berubah sesuai kebijakan pemerintah</small>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Biaya DP</label>

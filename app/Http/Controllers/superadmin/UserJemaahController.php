@@ -31,4 +31,17 @@ class UserJemaahController extends Controller
         Alert::success('Berhasil', 'Akun user berhasil diaktifkan');
         return back();
     }
+
+    public function updateStatus(User $user, Request $request)
+    {
+        $request->validate([
+            'status' => 'required|in:aktif,nonaktif',
+        ]);
+        
+        $user->status = $request->status;
+        $user->save();
+        
+        Alert::success('Berhasil', 'Status akun jemaah berhasil diperbarui.');
+        return back();
+    }
 }

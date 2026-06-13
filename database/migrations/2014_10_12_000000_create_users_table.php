@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->string('role')->nullable();
             $table->string('foto_profile')->nullable();
             $table->string('google_id')->nullable();
+            $table->string('status')->default('aktif');
 
             $table->rememberToken();
             $table->timestamps();

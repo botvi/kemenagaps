@@ -27,6 +27,7 @@ class User extends Authenticatable
         'foto_profile',
         'kode_login',
         'is_active',
+        'status',
         'usia',
         'jenis_kelamin',
     ];

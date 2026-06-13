@@ -20,19 +20,35 @@ class ChatBotController extends Controller
 
     public function sendMessage(Request $request)
     {
-        $message = strtolower(trim($request->input('message')));
-        $words = explode(' ', $message);
+        $rawMessage = $request->input('message');
+        $message = strtolower(trim($rawMessage));
+        
+        // Bersihkan tanda baca untuk pemecahan kata agar pencarian database bersih
+        $cleanMessageForWords = preg_replace('/[?.!,;:]/', '', $message);
+        $words = explode(' ', $cleanMessageForWords);
 
         // 1. Cek Exact/Fuzzy Match di FAQ (Pertanyaan Umum)
         $faqs = PertanyaanUmum::where('published', true)->get();
+        $matchedFaq = null;
         foreach ($faqs as $faq) {
-            $faqQ = strtolower($faq->pertanyaan);
-            if (str_contains($faqQ, $message) || str_contains($message, $faqQ)) {
-                return response()->json([
-                    'reply' => $faq->jawaban,
-                    'type' => 'faq'
-                ]);
+            $faqQ = strtolower(trim($faq->pertanyaan));
+            // Hapus tanda baca di akhir untuk perbandingan bersih
+            $faqQClean = rtrim($faqQ, '? .!');
+            $messageClean = rtrim($message, '? .!');
+            
+            if ($messageClean === $faqQClean || 
+                (strlen($messageClean) >= 8 && str_contains($faqQClean, $messageClean)) || 
+                (strlen($faqQClean) >= 8 && str_contains($messageClean, $faqQClean))) {
+                $matchedFaq = $faq;
+                break;
             }
+        }
+
+        if ($matchedFaq) {
+            return response()->json([
+                'reply' => $matchedFaq->jawaban,
+                'type' => 'faq'
+            ]);
         }
 
         // 2. Simulasi AI: Deteksi Intent/Maksud Pertanyaan
@@ -201,9 +217,24 @@ class ChatBotController extends Controller
             }
         }
 
-        // G. JAWABAN DEFAULT JIKA BENAR-BENAR TIDAK ADA KECOCOKAN
-        if (empty(trim($reply))) {
-            $cleanMessage = trim($request->input('message'));
+        // Cek apakah input mengandung ciri-ciri pertanyaan
+        $isQuestion = false;
+        if (str_contains($rawMessage, '?')) {
+            $isQuestion = true;
+        } else {
+            $questionWords = ['bagaimana', 'kapan', 'apakah', 'siapa', 'berapa', 'di mana', 'dimana', 'cara', 'tanya', 'tolong', 'kenapa', 'mengapa', 'harganya', 'fasilitasnya', 'jadwalnya', 'pertanyaan', 'ingin tahu'];
+            foreach ($questionWords as $qWord) {
+                if (str_contains($message, $qWord)) {
+                    $isQuestion = true;
+                    break;
+                }
+            }
+        }
+
+        // Simpan ke pertanyaan belum terjawab jika tidak ada FAQ match,
+        // dan (merupakan indikasi pertanyaan ATAU reply benar-benar kosong)
+        if (empty(trim($reply)) || $isQuestion) {
+            $cleanMessage = trim($rawMessage);
             if (strlen($cleanMessage) > 3) {
                 $existing = \App\Models\PertanyaanBelumTerjawab::whereRaw('LOWER(pertanyaan) = ?', [strtolower($cleanMessage)])->first();
                 if ($existing) {
@@ -215,7 +246,10 @@ class ChatBotController extends Controller
                     ]);
                 }
             }
-            
+        }
+
+        // G. JAWABAN DEFAULT JIKA BENAR-BENAR TIDAK ADA KECOCOKAN
+        if (empty(trim($reply))) {
             $reply = "Maaf, saya kurang paham maksud Anda. 🤔\n\nCoba ketikkan:\n- 'Paket haji'\n- 'Harga umrah'\n- 'Jadwal keberangkatan'\n- 'Jadwal manasik'\n- 'Jumlah jemaah'\n- 'Informasi terbaru'";
         }
 
