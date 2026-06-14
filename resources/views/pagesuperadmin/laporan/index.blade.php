@@ -53,18 +53,15 @@
                                     </select>
                                 </div>
 
-                                <!-- Usia Min -->
-                                <div class="col-md-2">
-                                    <label class="form-label fw-semibold">Usia Min</label>
-                                    <input type="number" name="usia_min" class="form-control" min="1" max="120"
-                                        placeholder="Contoh: 20" value="{{ request('usia_min') }}">
-                                </div>
-
-                                <!-- Usia Max -->
-                                <div class="col-md-2">
-                                    <label class="form-label fw-semibold">Usia Max</label>
-                                    <input type="number" name="usia_max" class="form-control" min="1" max="120"
-                                        placeholder="Contoh: 60" value="{{ request('usia_max') }}">
+                                <!-- Tahun Daftar -->
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">Tahun Daftar</label>
+                                    <select name="tahun_pendaftaran" class="form-select">
+                                        <option value="">-- Semua Tahun --</option>
+                                        @foreach($list_tahun as $thn)
+                                            <option value="{{ $thn }}" {{ request('tahun_pendaftaran') == $thn ? 'selected' : '' }}>{{ $thn }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                                 <!-- Tombol -->
@@ -111,7 +108,7 @@
                                         <th>Jenis Kelamin</th>
                                         <th>Paket Haji</th>
                                         <th>Status Akun</th>
-                                        <th>Tgl Daftar</th>
+                                        <th>Tahun Daftar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -138,7 +135,7 @@
                                                 <span class="badge bg-danger">Nonaktif</span>
                                             @endif
                                         </td>
-                                        <td>{{ $item->created_at->translatedFormat('d M Y') }}</td>
+                                        <td>{{ $item->tahun_pendaftaran }}</td>
                                     </tr>
                                     @empty
                                     <tr>

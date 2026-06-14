@@ -26,21 +26,20 @@ class LaporanController extends Controller
             });
         }
 
-        // Filter Usia (lewat relasi user)
-        if ($request->filled('usia_min') || $request->filled('usia_max')) {
-            $query->whereHas('user', function ($q) use ($request) {
-                if ($request->filled('usia_min')) {
-                    $q->where('usia', '>=', $request->usia_min);
-                }
-                if ($request->filled('usia_max')) {
-                    $q->where('usia', '<=', $request->usia_max);
-                }
-            });
+        // Filter Tahun Pendaftaran
+        if ($request->filled('tahun_pendaftaran')) {
+            $query->where('tahun_pendaftaran', $request->tahun_pendaftaran);
         }
 
         $jemaahs = $query->latest()->get();
 
-        return view('pagesuperadmin.laporan.index', compact('jemaahs'));
+        // Ambil daftar tahun unik dari calon_jemaahs untuk filter
+        $list_tahun = CalonJemaah::select('tahun_pendaftaran')
+            ->distinct()
+            ->orderBy('tahun_pendaftaran', 'desc')
+            ->pluck('tahun_pendaftaran');
+
+        return view('pagesuperadmin.laporan.index', compact('jemaahs', 'list_tahun'));
     }
 
     public function print(Request $request)
@@ -59,19 +58,12 @@ class LaporanController extends Controller
             });
         }
 
-        if ($request->filled('usia_min') || $request->filled('usia_max')) {
-            $query->whereHas('user', function ($q) use ($request) {
-                if ($request->filled('usia_min')) {
-                    $q->where('usia', '>=', $request->usia_min);
-                }
-                if ($request->filled('usia_max')) {
-                    $q->where('usia', '<=', $request->usia_max);
-                }
-            });
+        if ($request->filled('tahun_pendaftaran')) {
+            $query->where('tahun_pendaftaran', $request->tahun_pendaftaran);
         }
 
         $jemaahs  = $query->latest()->get();
-        $filters  = $request->only(['status', 'jenis_kelamin', 'usia_min', 'usia_max']);
+        $filters  = $request->only(['status', 'jenis_kelamin', 'tahun_pendaftaran']);
 
         return view('pagesuperadmin.laporan.print', compact('jemaahs', 'filters'));
     }

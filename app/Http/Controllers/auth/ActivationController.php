@@ -15,6 +15,11 @@ class ActivationController extends Controller
     {
         $user = User::findOrFail($id);
 
+        if ($user->status == 'nonaktif') {
+            Alert::error('Akun Dinonaktifkan', 'Akun Anda telah dinonaktifkan oleh administrator.');
+            return redirect()->route('login');
+        }
+
         if ($user->is_active) {
             // Jika user sudah aktif dan sudah login
             if (Auth::check() && Auth::id() == $id) {
@@ -34,6 +39,11 @@ class ActivationController extends Controller
         ]);
 
         $user = User::findOrFail($id);
+
+        if ($user->status == 'nonaktif') {
+            Alert::error('Akun Dinonaktifkan', 'Akun Anda telah dinonaktifkan oleh administrator.');
+            return redirect()->route('login');
+        }
 
         if ($user->is_active) {
             Alert::info('Akun Sudah Aktif', 'Akun Anda sudah aktif. Silakan masuk.');

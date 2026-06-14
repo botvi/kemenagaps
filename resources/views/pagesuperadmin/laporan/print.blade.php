@@ -197,12 +197,8 @@
         <span><strong>Jenis Kelamin :</strong>
             {{ $filters['jenis_kelamin'] ?? 'Semua' }}
         </span>
-        <span><strong>Rentang Usia :</strong>
-            @if(($filters['usia_min'] ?? '') || ($filters['usia_max'] ?? ''))
-                {{ $filters['usia_min'] ?? '0' }} &ndash; {{ $filters['usia_max'] ?? '∞' }} tahun
-            @else
-                Semua
-            @endif
+        <span><strong>Tahun Daftar :</strong>
+            {{ $filters['tahun_pendaftaran'] ?? 'Semua' }}
         </span>
         <span><strong>Total Data&nbsp;&nbsp;&nbsp;:</strong> {{ $jemaahs->count() }} jemaah</span>
     </div>
@@ -219,7 +215,7 @@
                     <th style="width:65px;">Jenis Kelamin</th>
                     <th style="width:110px;">Paket Haji</th>
                     <th style="width:75px;">Status Akun</th>
-                    <th style="width:75px;">Tgl Daftar</th>
+                    <th style="width:75px;">Tahun Daftar</th>
                 </tr>
             </thead>
             <tbody>
@@ -246,7 +242,7 @@
                         @endif
                     </td>
                     <td class="text-center">
-                        {{ $item->created_at->translatedFormat('d M Y') }}
+                        {{ $item->tahun_pendaftaran }}
                     </td>
                 </tr>
                 @empty

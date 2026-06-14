@@ -94,15 +94,7 @@
                             <i class="fa-solid fa-file-signature text-brand-500"></i> Pendaftaran Paket
                         </h3>
 
-                        <div class="space-y-4">
-                            <p class="text-gray-600 text-sm leading-relaxed">
-                                Tertarik dengan paket <strong>{{ $paket->nama_paket }}</strong>? Silakan hubungi admin kami untuk mendaftar atau berkonsultasi mengenai paket ini.
-                            </p>
-                            <a href="https://wa.me/6281234567890?text=Assalamu'alaikum,%20saya%20tertarik%20dengan%20paket%20{{ urlencode($paket->nama_paket) }}" target="_blank"
-                                class="flex items-center justify-center gap-2 w-full py-3 px-4 bg-green-500 hover:bg-green-600 text-white font-bold rounded-full shadow-lg shadow-green-500/25 transition-all text-sm">
-                                <i class="fa-brands fa-whatsapp text-lg"></i> Hubungi WhatsApp
-                            </a>
-                        </div>
+                     
                     </div>
                 </div>
             </div>
