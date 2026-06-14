@@ -14,7 +14,7 @@ class ChatBotController extends Controller
 {
     public function getFaqs()
     {
-        $faqs = PertanyaanUmum::where('published', true)->orderBy('urutan', 'asc')->get();
+        $faqs = PertanyaanUmum::where('published', true)->orderBy('urutan', 'asc')->take(4)->get();
         return response()->json($faqs);
     }
 
@@ -22,7 +22,7 @@ class ChatBotController extends Controller
     {
         $rawMessage = $request->input('message');
         $message = strtolower(trim($rawMessage));
-        
+
         // Bersihkan tanda baca untuk pemecahan kata agar pencarian database bersih
         $cleanMessageForWords = preg_replace('/[?.!,;:]/', '', $message);
         $words = explode(' ', $cleanMessageForWords);
@@ -35,10 +35,12 @@ class ChatBotController extends Controller
             // Hapus tanda baca di akhir untuk perbandingan bersih
             $faqQClean = rtrim($faqQ, '? .!');
             $messageClean = rtrim($message, '? .!');
-            
-            if ($messageClean === $faqQClean || 
-                (strlen($messageClean) >= 8 && str_contains($faqQClean, $messageClean)) || 
-                (strlen($faqQClean) >= 8 && str_contains($messageClean, $faqQClean))) {
+
+            if (
+                $messageClean === $faqQClean ||
+                (strlen($messageClean) >= 8 && str_contains($faqQClean, $messageClean)) ||
+                (strlen($faqQClean) >= 8 && str_contains($messageClean, $faqQClean))
+            ) {
                 $matchedFaq = $faq;
                 break;
             }
@@ -185,8 +187,8 @@ class ChatBotController extends Controller
                     foreach ($words as $word) {
                         if (strlen($word) > 3) {
                             $q->orWhere('judul_kegiatan', 'like', "%{$word}%")
-                              ->orWhere('lokasi', 'like', "%{$word}%")
-                              ->orWhere('pemateri', 'like', "%{$word}%");
+                                ->orWhere('lokasi', 'like', "%{$word}%")
+                                ->orWhere('pemateri', 'like', "%{$word}%");
                         }
                     }
                 });
