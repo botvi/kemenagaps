@@ -45,7 +45,9 @@
                                         <select name="paket_haji_id" class="form-control" required>
                                             <option value="">Pilih Paket Haji</option>
                                             @foreach($paketHaji as $p)
-                                                <option value="{{ $p->id }}" {{ $calonJemaah->paket_haji_id == $p->id ? 'selected' : '' }}>{{ $p->nama_paket }} (Rp {{ number_format($p->harga, 0, ',', '.') }})</option>
+                                                @if($p->kategori == 'Haji Reguler')
+                                                    <option value="{{ $p->id }}" {{ $calonJemaah->paket_haji_id == $p->id ? 'selected' : '' }}>{{ $p->nama_paket }}</option>
+                                                @endif
                                             @endforeach
                                         </select>
                                     </div>

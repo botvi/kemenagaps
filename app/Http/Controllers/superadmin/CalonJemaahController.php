@@ -21,7 +21,7 @@ class CalonJemaahController extends Controller
     public function create()
     {
         $users = User::where('role', 'user')->get();
-        $paketHaji = PaketHaji::all();
+        $paketHaji = PaketHaji::where('kategori', 'Haji Reguler')->get();
         return view('pagesuperadmin.calon-jemaah.create', compact('users', 'paketHaji'));
     }
 
@@ -53,7 +53,7 @@ class CalonJemaahController extends Controller
     public function edit(CalonJemaah $calonJemaah)
     {
         $users = User::where('role', 'user')->get();
-        $paketHaji = PaketHaji::all();
+        $paketHaji = PaketHaji::where('kategori', 'Haji Reguler')->get();
         return view('pagesuperadmin.calon-jemaah.edit', compact('calonJemaah', 'users', 'paketHaji'));
     }
 

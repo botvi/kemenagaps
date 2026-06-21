@@ -16,7 +16,7 @@
 
     <!-- [Favicon] icon -->
     <link rel="icon"
-        href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSA3ejR6sDhtz1fhMAM3-GDxUQO4Y6EYcsxOg&s"
+        href=""
         type="image/x-icon">
     <!-- [Google Font] Family -->
     <link rel="stylesheet"
