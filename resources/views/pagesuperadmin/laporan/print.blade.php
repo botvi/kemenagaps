@@ -167,9 +167,9 @@
 
     <!-- KOP SURAT -->
     <div class="kop">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSA3ejR6sDhtz1fhMAM3-GDxUQO4Y6EYcsxOg&s"
+        {{-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSA3ejR6sDhtz1fhMAM3-GDxUQO4Y6EYcsxOg&s"
              alt="Logo KEMENHAJ KUANSING"
-             onerror="this.style.display='none'">
+             onerror="this.style.display='none'"> --}}
         <div class="kop-text">
             <div class="instansi">KEMENHAJ KUANTAN SINGINGI</div>
             <div class="alamat">Jalan Simpang Barangan, Kelurahan Beringin, Kecamatan Kuantan Tengah</div>
