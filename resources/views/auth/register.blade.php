@@ -87,7 +87,6 @@
                 <input type="text" id="username" name="username"
                     class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all @error('username') border-red-500 @enderror" placeholder="Buat username unik"
                     value="{{ old('username') }}" required>
-                <p class="text-gray-500 text-xs mt-1">Digunakan untuk login dan URL profil Anda</p>
                 @error('username')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
@@ -102,7 +101,6 @@
                 <input type="tel" id="no_wa" name="no_wa"
                     class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all @error('no_wa') border-red-500 @enderror" placeholder="Contoh: 08123456789"
                     value="{{ old('no_wa') }}" required>
-                <p class="text-gray-500 text-xs mt-1">Nomor WhatsApp untuk verifikasi</p>
                 @error('no_wa')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
