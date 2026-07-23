@@ -25,6 +25,7 @@ class User extends Authenticatable
         'role',
         'google_id',
         'foto_profile',
+        'foto_verifikasi',
         'kode_login',
         'is_active',
         'status',

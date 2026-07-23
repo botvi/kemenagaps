@@ -37,6 +37,7 @@
                                         <th>No WA</th>
                                         <th>Usia</th>
                                         <th>Jenis Kelamin</th>
+                                        <th>Foto Verifikasi</th>
                                         <th>Kode Login</th>
                                         <th>Status Akun</th>
                                         <th>Aksi</th>
@@ -56,6 +57,21 @@
                                                 <span class="badge bg-danger">Perempuan</span>
                                             @else
                                                 <span class="text-muted">-</span>
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            @if($item->foto_verifikasi)
+                                                <button type="button"
+                                                    class="btn btn-sm btn-outline-primary"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalFotoVerifikasi"
+                                                    data-foto="{{ asset('foto_verifikasi/' . $item->foto_verifikasi) }}"
+                                                    data-nama="{{ $item->name }}"
+                                                    title="Lihat Foto Verifikasi">
+                                                    <i class="ti ti-photo me-1"></i> Lihat Foto
+                                                </button>
+                                            @else
+                                                <span class="badge bg-secondary">Tidak Ada</span>
                                             @endif
                                         </td>
                                         <td><strong>{{ $item->kode_login }}</strong></td>
@@ -99,4 +115,48 @@
         </div>
     </div>
 </div>
+
+<!-- Modal Foto Verifikasi -->
+<div class="modal fade" id="modalFotoVerifikasi" tabindex="-1" aria-labelledby="modalFotoVerifikasiLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="modalFotoVerifikasiLabel">
+                    <i class="ti ti-photo me-2"></i>
+                    Foto Verifikasi — <span id="modal-nama-jemaah"></span>
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center p-3">
+                <img id="modal-foto-img"
+                    src="#"
+                    alt="Foto Verifikasi Jemaah"
+                    class="img-fluid rounded shadow"
+                    style="max-height: 500px; object-fit: contain;">
+            </div>
+            <div class="modal-footer">
+                <a id="modal-foto-download" href="#" download class="btn btn-success">
+                    <i class="ti ti-download me-1"></i> Unduh Foto
+                </a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Populate modal dengan data foto verifikasi jemaah
+    const modalFoto = document.getElementById('modalFotoVerifikasi');
+    if (modalFoto) {
+        modalFoto.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            const fotoUrl = button.getAttribute('data-foto');
+            const namaJemaah = button.getAttribute('data-nama');
+
+            document.getElementById('modal-foto-img').src = fotoUrl;
+            document.getElementById('modal-nama-jemaah').textContent = namaJemaah;
+            document.getElementById('modal-foto-download').href = fotoUrl;
+        });
+    }
+</script>
 @endsection

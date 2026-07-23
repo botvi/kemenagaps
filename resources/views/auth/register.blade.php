@@ -51,7 +51,7 @@
             <p class="text-sm text-gray-500">Daftar ke Kemenhaj Kuansing untuk memulai</p>
         </div>
 
-        <form method="POST" action="{{ route('register') }}" class="space-y-4">
+        <form method="POST" action="{{ route('register') }}" class="space-y-4" enctype="multipart/form-data">
             @csrf
 
             @if ($errors->any())
@@ -177,6 +177,28 @@
                 @enderror
             </div>
 
+            <!-- Upload Foto Verifikasi -->
+            <div>
+                <label for="foto_verifikasi" class="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+                    <ion-icon name="image-outline" class="text-lg"></ion-icon>
+                    Upload Foto Verifikasi
+                </label>
+                <div id="foto-drop-zone"
+                    class="w-full border-2 border-dashed border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center cursor-pointer hover:border-brand-500 transition-all @error('foto_verifikasi') border-red-500 @enderror"
+                    onclick="document.getElementById('foto_verifikasi').click()">
+                    <img id="foto-preview" src="#" alt="Preview" class="hidden max-h-40 rounded-lg mb-2 object-cover">
+                    <div id="foto-placeholder" class="flex flex-col items-center text-gray-400">
+                        <ion-icon name="cloud-upload-outline" class="text-4xl mb-1"></ion-icon>
+                        <p class="text-sm">Klik untuk pilih gambar</p>
+                        <p class="text-xs text-gray-400 mt-1">JPG, JPEG, PNG, WEBP — Maks. 2MB</p>
+                    </div>
+                </div>
+                <input type="file" id="foto_verifikasi" name="foto_verifikasi" accept="image/*" class="hidden" required>
+                @error('foto_verifikasi')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
             <!-- Terms & Conditions -->
             <div class="flex items-start gap-2 pt-2">
                 <div class="flex items-center h-5">
@@ -222,6 +244,28 @@
                     const icon = togglePassword.querySelector('ion-icon');
                     if (icon) {
                         icon.setAttribute('name', type === 'password' ? 'eye-outline' : 'eye-off-outline');
+                    }
+                });
+            }
+
+            // Preview foto verifikasi
+            const fotoInput = document.getElementById('foto_verifikasi');
+            const fotoPreview = document.getElementById('foto-preview');
+            const fotoPlaceholder = document.getElementById('foto-placeholder');
+            const fotoDropZone = document.getElementById('foto-drop-zone');
+
+            if (fotoInput) {
+                fotoInput.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(ev) {
+                            fotoPreview.src = ev.target.result;
+                            fotoPreview.classList.remove('hidden');
+                            fotoPlaceholder.classList.add('hidden');
+                            fotoDropZone.classList.add('border-teal-500');
+                        };
+                        reader.readAsDataURL(file);
                     }
                 });
             }
